@@ -1,11 +1,14 @@
 const express = require("express");
 const Router = express.Router();
-const photoUploadingFunctions = require("../middlewares/userImageHanddler");
+const {
+  profilePhotoUploader,
+  resizeUserPhotoSignup,
+} = require("../middlewares/userImageHanddler");
 const AuthController = require("../controller/AuthController");
 
 Router.route("/signup").post(
-  photoUploadingFunctions.profilePhotoUploader,
-  photoUploadingFunctions.resizeUserPhotoSignup,
+  profilePhotoUploader,
+  resizeUserPhotoSignup,
   AuthController.signup
 );
 

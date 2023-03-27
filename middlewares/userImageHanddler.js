@@ -1,7 +1,17 @@
 const multer = require("multer");
 const AppError = require("../utils/AppError");
 const sharp = require("sharp");
+const path = require("path");
 
+// const storage = multer.diskStorage({
+//   destination: "./public/img",
+//   filename: function (req, file, cb) {
+//     cb(
+//       null,
+//       file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+//     );
+//   },
+// });
 const storage = multer.memoryStorage();
 
 const fileFilter = function (req, file, cb) {
@@ -14,7 +24,7 @@ const fileFilter = function (req, file, cb) {
 
 const upload = multer({
   storage: storage,
-  limits: { fieldSize: 1024 * 1024 * 5 },
+  // limits: { fieldSize: 1024 * 1024 * 5 },
   fileFilter: fileFilter,
 });
 
@@ -45,7 +55,7 @@ exports.resizeUserPhotoSignup = (req, res, next) => {
     .resize(500, 500)
     .toFormat("jpeg")
     .jpeg({ quality: 90 })
-    .toFile(`public/img/users/${req.file.filename}`);
+    .toFile(`public/img/${req.file.filename}`);
 
   next();
 };

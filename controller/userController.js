@@ -142,7 +142,6 @@ exports.findAllUser = CatchAsync(async (req, res, next) => {
       success: "success",
       allUser,
     });
-    // res.status(200).render("users", { currentUser, allUser });
   }
 });
 
@@ -150,20 +149,17 @@ exports.getUser = CatchAsync(async (req, res, next) => {
   const currentUser = req.user;
   const id = req.params.id;
   const foundUser = await User.findById({ _id: id });
-  if(!foundUser){
+  if (!foundUser) {
     res.status(404).json({
       status: "success",
-      message: "User not found"
+      message: "User not found",
     });
-  }else{
-
+  } else {
     res.status(200).json({
       status: "success",
       foundUser,
     });
   }
-
-
 });
 exports.deleteUser = CatchAsync(async (req, res, next) => {
   const id = req.params.id;

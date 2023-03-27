@@ -1,0 +1,39 @@
+.login {
+  width: 400px;
+  padding: 20px;
+  margin: 70px auto 0 auto;
+  box-shadow: 0px 0px 0px 1px #e8e4e4;
+  border-radius: 10px;
+  height: 400px;
+}
+.login h2 {
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.login-form-forgot a:link {
+  text-decoration: none;
+}
+.login-form-forgot a:hover {
+  text-decoration: underline;
+}
+
+.loading-icon {
+  display: none;
+  fill: white;
+  color: white;
+  /* font-size: 2rem; */
+  animation: animate 2s infinite;
+  margin-right: 10px;
+}
+button .load {
+  display: inline-block;
+}
+@keyframes animate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(720deg);
+  }
+}

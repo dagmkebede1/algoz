@@ -1,0 +1,16 @@
+.login-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+.login-container svg {
+  max-width: 500px;
+}
+
+@media screen and (max-width: 468px) {
+  .login-container {
+    grid-template-columns: none;
+  }
+  .login-container svg {
+    display: none;
+  }
+}

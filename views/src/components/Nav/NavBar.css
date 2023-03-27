@@ -1,0 +1,17 @@
+.nav a:link {
+  color: #1677ff;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+}
+/* .nav a:hover {
+  border-bottom: 2px solid #1677ff;
+} */
+
+/* .signup-link:hover {
+  border: 2px solid #1677ff;
+  background-color: #1677ff;
+
+  color: white;
+  border-radius: 7px;
+} */

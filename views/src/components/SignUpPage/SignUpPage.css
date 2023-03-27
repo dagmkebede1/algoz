@@ -1,0 +1,26 @@
+.signup-page-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  justify-content: center;
+}
+
+.signup-page-container svg {
+  max-width: 500px;
+}
+
+@media screen and (max-width: 468px) {
+  .signup-page-container {
+    grid-template-columns: none;
+  }
+  .signup-page-container svg {
+    display: none;
+  }
+}
+@media screen and (max-width: 990px) {
+  /* .signup-container {
+    grid-template-columns: none;
+  } */
+  .signup-page-container svg {
+    display: none;
+  }
+}
