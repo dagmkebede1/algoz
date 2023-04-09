@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import reactLogo from "./assets/react.svg";
 import Dashboard from "./components/Dashboard/Dashboard";
 import LogInPage from "./components/LogInPage/LogInPage";
@@ -9,6 +9,8 @@ import LogIn from "./components/Auth/Form";
 import SignPage from "./components/SignUpPage/SignUpPage";
 import AntNavBar from "./components/Nav/AntNavBar";
 import Navbar from "./components/Nav/Navbar";
+import { useSelector, useDispatch } from "react-redux";
+import { getUser } from "./components/Redux/Reducers/authSllice";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -34,6 +36,11 @@ const router = createBrowserRouter([
 ]);
 function App() {
   const queryClient = new QueryClient();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUser());
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>

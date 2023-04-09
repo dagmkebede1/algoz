@@ -100,10 +100,11 @@ exports.login = CatchAsync(async (req, res, next) => {
   }
 
   const token = signToken(user._id);
+  const expires = new Date(
+    Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+  );
   const cookieOptions = {
-    expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-    ),
+    expires: expires,
     //this will be true in the hosting and productions
     secure: false,
     httpOnly: true,
@@ -112,6 +113,7 @@ exports.login = CatchAsync(async (req, res, next) => {
   res.status(200).json({
     status: "success",
     token: token,
+    expires: expires,
   });
 });
 
@@ -136,8 +138,8 @@ exports.protect = CatchAsync(async (req, res, next) => {
     req.headers.authorization.startsWith("Bearer")
   ) {
     token = req.headers.authorization.split(" ")[1];
-  } else if (req.cookies.jwt) {
-    token = req.cookies.jwt;
+  } else if (req.cookies.us_id) {
+    token = req.cookies.us_id;
   }
 
   if (!token) {

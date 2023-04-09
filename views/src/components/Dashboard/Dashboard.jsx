@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "../utility/axios";
+import { axiosInstance } from "../utility/axios";
 import React, { useMemo, useEffect } from "react";
 import MaterialReactTable from "material-react-table";
 
@@ -22,7 +22,7 @@ function App() {
   useEffect(() => {
     let fetchUser = async () => {
       try {
-        let response = await axios.get("/manage/users");
+        let response = await axiosInstance.get("/manage/users");
         console.log(response.data.allUser);
         setTableData(response.data.allUser);
         setLoading(false);

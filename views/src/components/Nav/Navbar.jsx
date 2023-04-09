@@ -5,10 +5,13 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { useSelector } from "react-redux";
 import { Outlet, NavLink, Link } from "react-router-dom";
 import { Menu } from "antd";
 
 function NavScrollExample() {
+  const { isAuth, user } = useSelector((state) => state.auth);
+
   return (
     <>
       <Navbar sticky="top" bg="light" expand="lg">
@@ -73,63 +76,44 @@ function NavScrollExample() {
                   About
                 </NavLink>
               </Nav.Link>
-              <Nav.Link>
-                <NavLink
-                  to={"/login"}
-                  style={({ isActive, isPending }) => {
-                    return {
-                      // border: "2px solid #1677ff",
-                      // border: isPending ? "2px solid #1677ff" : "none",
-                      // borderRadius: "16px",
-                      // padding: "8px 16px",
-                      borderBottom: isActive ? "2px solid #1677ff" : "none",
-                      paddingBottom: isActive ? "14px" : "0",
-                      textDecoration: "none",
-                      // transition: "all .4s ease-in-out",
-                      // backgroundColor: isActive ? "#1677ff" : "#f8f9fa",
-                      // color: isActive ? "white" : "#1677ff",
-                      // textDecoration: "none",
-                    };
-                  }}
-                >
-                  Login
-                </NavLink>
-              </Nav.Link>
-              <Nav.Link>
-                <NavLink
-                  className={"signup-link"}
-                  to={"/signup"}
-                  style={({ isActive, isPending }) => {
-                    return {
-                      // fontWeight: isActive ? "bold" : "",
-                      // color: isPending ? "red" : "black",
-                      // border: "2px solid #1677ff",
-                      // borderRadius: "16px",
-                      // padding: "8px 16px",
-                      // backgroundColor: isActive ? "#1677ff" : "#f8f9fa",
-                      // color: isActive ? "white" : "#1677ff",
-                      // textDecoration: "none",
-                      borderBottom: isActive ? "2px solid #1677ff" : "none",
-                      paddingBottom: isActive ? "14px" : "0",
-                      textDecoration: "none",
-                    };
-                  }}
-                >
-                  SignUp
-                </NavLink>
-              </Nav.Link>
-              {/* <Nav.Link style={{ color: "#1677ff" }}>
-                <NavLink to={"/signup"}>SignUp</NavLink>
-              </Nav.Link>
-
-              <Nav.Link style={{ color: "#1677ff" }}>About</Nav.Link>
-              <Nav.Link style={{ color: "#1677ff" }}>Contact</Nav.Link>
-              <Nav.Link>
-                <a href="">SignIn</a>
-              </Nav.Link>
-              <Nav.Link>
-                <a href="">SignUp</a>
-              </Nav.Link> */}
+              {isAuth && (
+                <Nav.Link>
+                  <NavLink to="/dashboard">Dashboard</NavLink>
+                </Nav.Link>
+              )}
+              {!isAuth && (
+                <>
+                  <Nav.Link>
+                    <NavLink
+                      to={"/login"}
+                      style={({ isActive, isPending }) => {
+                        return {
+                          borderBottom: isActive ? "2px solid #1677ff" : "none",
+                          paddingBottom: isActive ? "14px" : "0",
+                          textDecoration: "none",
+                        };
+                      }}
+                    >
+                      Login
+                    </NavLink>
+                  </Nav.Link>
+                  <Nav.Link>
+                    <NavLink
+                      className={"signup-link"}
+                      to={"/signup"}
+                      style={({ isActive, isPending }) => {
+                        return {
+                          borderBottom: isActive ? "2px solid #1677ff" : "none",
+                          paddingBottom: isActive ? "14px" : "0",
+                          textDecoration: "none",
+                        };
+                      }}
+                    >
+                      SignUp
+                    </NavLink>
+                  </Nav.Link>
+                </>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>

@@ -7,6 +7,8 @@ import validator from "validator";
 import { useState } from "react";
 import "./Form.css";
 import { NavLink } from "react-router-dom";
+import { getUser } from "../Redux/Reducers/authSllice";
+import { useSelector, useDispatch } from "react-redux";
 
 const cookies = new Cookies();
 const App = () => {
@@ -19,7 +21,12 @@ const App = () => {
       .post("http://localhost:5000/login", values)
       .then((res) => {
         console.log(res.data.token);
-        cookies.set("jwt", res.data.token, { path: "/" });
+        cookies.set("us_id", res.data.token, {
+          path: "/",
+          // secure: false,
+          // httpOnly: true,
+          expires: new Date(res.data.expires),
+        });
         setIsSubmitting(false);
       })
       .catch((err) => {

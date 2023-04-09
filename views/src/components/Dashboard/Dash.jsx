@@ -2,7 +2,7 @@ import React, { useMemo, useState, useCallback } from "react";
 import MaterialReactTable from "material-react-table";
 import { Box, IconButton, Tooltip } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import axios from "../utility/axios.js";
+import { axiosInstance } from "../utility/axios.js";
 import { useUpdateUser } from "../hooks/useDataFetch";
 import { useDeleteUser } from "../hooks/useDelete";
 import { useMutation, useQuery, useQueryClient } from "react-query";
@@ -40,7 +40,7 @@ const Example = () => {
       fetchURL.searchParams.set("globalFilter", globalFilter ?? "");
       fetchURL.searchParams.set("sorting", JSON.stringify(sorting ?? []));
 
-      const response = await axios(fetchURL.href);
+      const response = await axiosInstance(fetchURL.href);
       // console.log(response.data.allUser);
       return response.data.allUser;
     },
