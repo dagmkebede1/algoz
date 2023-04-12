@@ -8,36 +8,56 @@ import SignPage from "./components/SignUpPage/SignUpPage";
 import Navbar from "./components/Nav/Navbar";
 import { useSelector, useDispatch } from "react-redux";
 import { getUser } from "./components/Redux/Reducers/authSllice";
+import ProtectedRoutes from "./components/Protect/ProtectedRoutes";
 import {
   createBrowserRouter,
   RouterProvider,
   Route,
   Link,
 } from "react-router-dom";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Navbar />,
-    children: [
-      {
-        path: "login",
-        element: <LogInPage />,
-      },
-      {
-        path: "signup",
-        element: <SignPage />,
-      },
-      {
-        path: "dashboard",
-        element: <Dashboard />,
-      },
-    ],
-  },
-]);
 function App() {
   const queryClient = new QueryClient();
   const dispatch = useDispatch();
+  const { isAuth } = useSelector((state) => state.auth);
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Navbar />,
+      children: [
+        {
+          path: "login",
+          element: <LogInPage />,
+        },
+        {
+          path: "signup",
+          element: <SignPage />,
+        },
+      ],
+    },
+    {
+      path: "/dashboard",
+      element: (
+        <ProtectedRoutes>
+          <Dashboard />
+        </ProtectedRoutes>
+      ),
+      children: [
+        {
+          path: "users",
+          element: <UserTable />,
+        },
+        {
+          path: "signup",
+          element: <SignPage />,
+        },
+        {
+          path: "dashboard",
+          element: <Dashboard />,
+        },
+      ],
+    },
+  ]);
 
   useEffect(() => {
     dispatch(getUser());
@@ -49,13 +69,6 @@ function App() {
         <>
           <RouterProvider router={router}></RouterProvider>
         </>
-        {/* <Dashboard /> */}
-        {/* <Navbar /> */}
-        {/* <Login />  */}
-        {/* <Other /> */}
-        {/* <Signup /> */}
-        {/* <Example /> */}
-        {/* <DashG /> */}
       </div>
     </QueryClientProvider>
   );

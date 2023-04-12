@@ -3,6 +3,8 @@ import { FaSpinner } from "react-icons/fa";
 import Cookies from "universal-cookie";
 import Swal from "sweetalert2";
 import validator from "validator";
+import { useSelector, useDispatch } from "react-redux";
+import { getUser } from "../Redux/Reducers/authSllice";
 import "./Signup.css";
 import axios from "axios";
 import {
@@ -30,6 +32,8 @@ const FormDisabledDemo = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errResponse, setErrResponse] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+
+  let dispatch = useDispatch();
 
   let handleChange = ({ fileList }) => {
     //---------------^^^^^----------------
@@ -64,6 +68,7 @@ const FormDisabledDemo = () => {
         console.log(res.data.token);
         cookies.set("jwt", res.data.token, { path: "/" });
         setIsSubmitting(false);
+        dispatch(getUser());
       })
       .catch((err) => {
         console.log(err.response?.data?.message);

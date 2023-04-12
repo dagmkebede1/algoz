@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import "./NavBar.css";
-import { Outlet } from "react-router-dom";
+import { Outlet, NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const { isAuth } = useSelector((state) => state.auth);
+
+  console.log(isOpen, isAuth)
   const toggleNav = () => {
     setIsOpen(!isOpen);
   };
@@ -14,10 +18,10 @@ const Navbar = () => {
     <>
       <nav className="navbar">
         <div className="navbar-container">
-          <a href="/" className="navbar-logo">
+          <NavLink href="/" className="navbar-logo" to={"/"}>
             {/* <img src={logo} alt="Logo" /> */}
             Algoz
-          </a>
+          </NavLink>
           <div
             id="toggle"
             className={isOpen ? "menu open" : "menu"}
@@ -29,25 +33,45 @@ const Navbar = () => {
           </div>
           <ul className={`navbar-menu ${isOpen && "active"}`}>
             <li className="navbar-item">
-              <a href="/" className="navbar-link">
+              <NavLink to={"/"} className="navbar-link">
                 Home
-              </a>
+              </NavLink>
             </li>
             <li className="navbar-item">
-              <a href="/about" className="navbar-link">
+              <NavLink to="/about" className="navbar-link">
                 About Us
-              </a>
+              </NavLink>
             </li>
             <li className="navbar-item">
-              <a href="/services" className="navbar-link">
+              <NavLink to="/services" className="navbar-link">
                 Services
-              </a>
+              </NavLink>
             </li>
             <li className="navbar-item">
-              <a href="/contact" className="navbar-link">
+              <NavLink to="/contact" className="navbar-link">
                 Contact Us
-              </a>
+              </NavLink>
             </li>
+            {isAuth ? (
+              <li className="navbar-item">
+                <NavLink to="/dashboard" className="navbar-link">
+                  Dashboard
+                </NavLink>
+              </li>
+            ) : (
+              <>
+                <li className="navbar-item">
+                  <NavLink to="/login" className="navbar-link">
+                    Sign In
+                  </NavLink>
+                </li>
+                <li className="navbar-item">
+                  <NavLink to="/signup" className="navbar-link">
+                    Sign Up
+                  </NavLink>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </nav>

@@ -14,7 +14,7 @@ const cookies = new Cookies();
 const App = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errResponse, setErrResponse] = useState("");
-
+  let dispatch = useDispatch();
   const onFinish = (values) => {
     setIsSubmitting(true);
     axios
@@ -28,6 +28,7 @@ const App = () => {
           expires: new Date(res.data.expires),
         });
         setIsSubmitting(false);
+        dispatch(getUser());
       })
       .catch((err) => {
         console.log(err.response.data.message);

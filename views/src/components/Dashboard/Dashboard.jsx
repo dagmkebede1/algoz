@@ -14,6 +14,8 @@ import { Layout, Menu, theme } from "antd";
 import React, { useState } from "react";
 import "./Dashboard.css";
 import MenuItem from "antd/es/menu/MenuItem";
+import { Outlet, NavLink } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 const { Header, Sider, Content } = Layout;
 
@@ -22,11 +24,14 @@ const Dashboard = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
+  const { isAuth, user } = useSelector((state) => state.auth);
+
   return (
     <Layout style={{ height: "100vh" }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="ant_logo">
-          <h1>{collapsed ? "AI" : "Algoz"}</h1>
+          <h2>{collapsed ? "AI" : "Algoz"}</h2>
         </div>
         <Menu
           theme="dark"
@@ -34,6 +39,44 @@ const Dashboard = () => {
           defaultSelectedKeys={["1"]}
           style={{ marginTop: "50px" }}
         >
+          {user.role === "admin" ? (
+            <>
+              {" "}
+              <MenuItem key={1} icon={<DashboardOutlined />}>
+                <NavLink to="/stat"> Stats</NavLink>
+              </MenuItem>
+              <MenuItem key={2} icon={<UsergroupAddOutlined />}>
+                <NavLink to="/dashboard/users"> Users</NavLink>
+              </MenuItem>
+              <MenuItem key={3} icon={<MdCastForEducation />}>
+                <NavLink to="/courses"> Courses</NavLink>
+              </MenuItem>
+              <MenuItem key={4} icon={<VideoCameraOutlined />}>
+                <NavLink to="/resources"> Resources</NavLink>
+              </MenuItem>
+              <MenuItem key={5} icon={<OneToOneOutlined />}>
+                <NavLink to="/network"> Algoz Network</NavLink>
+              </MenuItem>
+              <MenuItem key={6} icon={<UserOutlined />}>
+                <NavLink to="/me"> Profile</NavLink>
+              </MenuItem>
+            </>
+          ) : (
+            <>
+              <MenuItem key={1} icon={<HomeOutlined />}>
+                <NavLink to="#"> StudySpace</NavLink>
+              </MenuItem>
+              <MenuItem key={2} icon={<VideoCameraOutlined />}>
+                <NavLink to="#"> Resources</NavLink>
+              </MenuItem>
+              <MenuItem key={3} icon={<OneToOneOutlined />}>
+                <NavLink to="#"> Algoz Network</NavLink>
+              </MenuItem>
+              <MenuItem key={4} icon={<UserOutlined />}>
+                <NavLink to="#"> Profile</NavLink>
+              </MenuItem>
+            </>
+          )}
           {/* 
 
           for Admin panel
@@ -55,23 +98,7 @@ const Dashboard = () => {
              <MenuItem key={4} icon={<UserOutlined />}>
                 <a href="#"> Profile</a>
             </MenuItem>
-   
-   
-   
-   
    */}
-          <MenuItem key={1} icon={<HomeOutlined />}>
-            <a href="#"> StudySpace</a>
-          </MenuItem>
-          <MenuItem key={2} icon={<VideoCameraOutlined />}>
-            <a href="#"> Resources</a>
-          </MenuItem>
-          <MenuItem key={3} icon={<OneToOneOutlined />}>
-            <a href="#"> Algoz Network</a>
-          </MenuItem>
-          <MenuItem key={4} icon={<UserOutlined />}>
-            <a href="#"> Profile</a>
-          </MenuItem>
         </Menu>
       </Sider>
       <Layout className="site-layout">
@@ -97,7 +124,7 @@ const Dashboard = () => {
             background: colorBgContainer,
           }}
         >
-          Content
+          <Outlet />
         </Content>
       </Layout>
     </Layout>
