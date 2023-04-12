@@ -3,8 +3,8 @@ import MaterialReactTable from "material-react-table";
 import { Box, IconButton, Tooltip } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import { axiosInstance } from "../utility/axios.js";
-import { useUpdateUser } from "../hooks/useDataFetch";
-import { useDeleteUser } from "../hooks/useDelete";
+import { useUpdateUser } from "../hooks/useDataFetch.js";
+import { useDeleteUser } from "../hooks/useDelete.js";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { Delete, Edit } from "@mui/icons-material";
 

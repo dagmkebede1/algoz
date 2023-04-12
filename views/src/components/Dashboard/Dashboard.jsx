@@ -1,151 +1,106 @@
-import { useState } from "react";
-import { axiosInstance } from "../utility/axios";
-import React, { useMemo, useEffect } from "react";
-import MaterialReactTable from "material-react-table";
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  UploadOutlined,
+  UserOutlined,
+  DashboardOutlined,
+  UsergroupAddOutlined,
+  VideoCameraOutlined,
+  HomeOutlined,
+  OneToOneOutlined,
+} from "@ant-design/icons";
+import { MdCastForEducation } from "react-icons/md";
+import { Layout, Menu, theme } from "antd";
+import React, { useState } from "react";
+import "./Dashboard.css";
+import MenuItem from "antd/es/menu/MenuItem";
 
-//mock data - strongly typed if you are using TypeScript (optional, but recommended)
-// const data = [
-//   {
-//     name: "John",
-//     age: 30,
-//   },
-//   {
-//     name: "Sara",
-//     age: 25,
-//   },
-// ];
+const { Header, Sider, Content } = Layout;
 
-function App() {
-  const [tableData, setTableData] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    let fetchUser = async () => {
-      try {
-        let response = await axiosInstance.get("/manage/users");
-        console.log(response.data.allUser);
-        setTableData(response.data.allUser);
-        setLoading(false);
-      } catch (err) {
-        console.log(err.response.data.message);
-        setLoading(false);
-      }
-    };
-    fetchUser();
-  }, []);
-
-  const handleSaveRow = async ({ exitEditingMode, row, values }) => {
-    //if using flat data and simple accessorKeys/ids, you can just do a simple assignment here.
-    tableData[row.index] = values;
-    let id = row._valuesCache._id;
-    // console.log(row._valuesCache._id);
-    // manage/users/640f6ffbdca30381a36f55ac
-    axios
-      .patch("/manage/users/640f6ffbdca30381a36f55ac", values)
-      .then((res) => {
-        console.log(res);
-        setTableData([...tableData]);
-        exitEditingMode(); //required to exit editing mode
-      })
-      .catch((err) => {});
-    console.log(values);
-    //send/receive api updates here
-  };
-
-  const columns = useMemo(
-    () => [
-      {
-        accessorKey: "_id", //simple recommended way to define a column
-        header: "ID",
-        muiTableHeadCellProps: { sx: { color: "green" } }, //custom props
-      },
-      {
-        accessorKey: "firstName", //simple recommended way to define a column
-        header: "FirstName",
-        muiTableHeadCellProps: { sx: { color: "green" } }, //custom props
-      },
-      {
-        accessorKey: "lastName", //simple recommended way to define a column
-        header: "LastName",
-        muiTableHeadCellProps: { sx: { color: "green" } }, //custom props
-      },
-      {
-        accessorKey: "email", //simple recommended way to define a column
-        header: "Email",
-        muiTableHeadCellProps: { sx: { color: "green" } }, //custom props
-      },
-      {
-        accessorKey: "gender", //simple recommended way to define a column
-        header: "gender",
-        muiTableHeadCellProps: { sx: { color: "green" } }, //custom props
-      },
-      {
-        accessorKey: "phone", //simple recommended way to define a column
-        header: "Phone",
-        muiTableHeadCellProps: { sx: { color: "green" } }, //custom props
-      },
-      {
-        accessorKey: "batch", //simple recommended way to define a column
-        header: "Batch",
-        muiTableHeadCellProps: { sx: { color: "green" } }, //custom props
-      },
-      // {
-      //   accessorFn: (originalRow) => originalRow.age, //alternate way
-      //   id: 'age', //id required if you use accessorFn instead of accessorKey
-      //   header: 'Age',
-      //   Header: <i style={{ color: 'red' }}>Age</i>, //optional custom markup
-      // },
-    ],
-    []
-  );
-
+const Dashboard = () => {
+  const [collapsed, setCollapsed] = useState(false);
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
   return (
-    <>
-      {!loading ? (
-        <MaterialReactTable
-          columns={columns}
-          data={tableData}
-          enableRowSelection //enable some features
-          enableColumnOrdering
-          enableGlobalFilter={false} //turn off a feature
-          editingMode="modal"
-          enableEditing
-          enableClickToCopy={true}
-          onEditingRowSave={handleSaveRow}
-        />
-      ) : (
-        <h1>Loading...</h1>
-      )}
+    <Layout style={{ height: "100vh" }}>
+      <Sider trigger={null} collapsible collapsed={collapsed}>
+        <div className="ant_logo">
+          <h1>{collapsed ? "AI" : "Algoz"}</h1>
+        </div>
+        <Menu
+          theme="dark"
+          mode="inline"
+          defaultSelectedKeys={["1"]}
+          style={{ marginTop: "50px" }}
+        >
+          {/* 
 
-      {/* <MaterialReactTable
-      columns={columns}
-      data={tableData}
-      enableRowSelection //enable some features
-      enableColumnOrdering
-      enableGlobalFilter={false} //turn off a feature
-      editingMode="modal"
-      enableEditing
-      enableClickToCopy={true}
-      onEditingRowSave={handleSaveRow}
-      /> */}
-    </>
+          for Admin panel
+            <MenuItem key={1} icon={<DashboardOutlined />}>
+                <a href="#"> Stats</a>
+            </MenuItem>
+            <MenuItem key={1} icon={<UsergroupAddOutlined />}>
+                <a href="#"> Users</a>
+            </MenuItem>
+            <MenuItem key={1} icon={<MdCastForEducation />}>
+                <a href="#"> Courses</a>
+            </MenuItem>
+            <MenuItem key={1} icon={<VideoCameraOutlined />}>
+                <a href="#"> Resources</a>
+            </MenuItem>
+             <MenuItem key={3} icon={<OneToOneOutlined />}>
+                <a href="#"> Algoz Network</a>
+            </MenuItem>
+             <MenuItem key={4} icon={<UserOutlined />}>
+                <a href="#"> Profile</a>
+            </MenuItem>
+   
+   
+   
+   
+   */}
+          <MenuItem key={1} icon={<HomeOutlined />}>
+            <a href="#"> StudySpace</a>
+          </MenuItem>
+          <MenuItem key={2} icon={<VideoCameraOutlined />}>
+            <a href="#"> Resources</a>
+          </MenuItem>
+          <MenuItem key={3} icon={<OneToOneOutlined />}>
+            <a href="#"> Algoz Network</a>
+          </MenuItem>
+          <MenuItem key={4} icon={<UserOutlined />}>
+            <a href="#"> Profile</a>
+          </MenuItem>
+        </Menu>
+      </Sider>
+      <Layout className="site-layout">
+        <Header
+          style={{
+            padding: 0,
+            background: colorBgContainer,
+          }}
+        >
+          {React.createElement(
+            collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+            {
+              className: "ant_trigger",
+              onClick: () => setCollapsed(!collapsed),
+            }
+          )}
+        </Header>
+        <Content
+          style={{
+            margin: "24px 16px",
+            padding: 24,
+            minHeight: 280,
+            background: colorBgContainer,
+          }}
+        >
+          Content
+        </Content>
+      </Layout>
+    </Layout>
   );
-
-  // return (
-  //   loading && (
-  //     <MaterialReactTable
-  //       columns={columns}
-  //       data={tableData}
-  //       enableRowSelection //enable some features
-  //       enableColumnOrdering
-  //       enableGlobalFilter={false} //turn off a feature
-  //       editingMode="modal"
-  //       enableEditing
-  //       enableClickToCopy={true}
-  //       onEditingRowSave={handleSaveRow}
-  //     />
-  //   )
-  // );
-}
-
-export default App;
+};
+export default Dashboard;

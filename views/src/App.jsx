@@ -1,13 +1,10 @@
 import { useState, useEffect } from "react";
-import reactLogo from "./assets/react.svg";
 import Dashboard from "./components/Dashboard/Dashboard";
 import LogInPage from "./components/LogInPage/LogInPage";
-import Example from "./components/Dashboard/Dash";
+import UserTable from "./components/UserTable/UserTable";
 import { QueryClientProvider, QueryClient } from "react-query";
-import DashG from "./components/Dashboard/DashG";
 import LogIn from "./components/Auth/Form";
 import SignPage from "./components/SignUpPage/SignUpPage";
-import AntNavBar from "./components/Nav/AntNavBar";
 import Navbar from "./components/Nav/Navbar";
 import { useSelector, useDispatch } from "react-redux";
 import { getUser } from "./components/Redux/Reducers/authSllice";
@@ -30,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignPage />,
+      },
+      {
+        path: "dashboard",
+        element: <Dashboard />,
       },
     ],
   },
