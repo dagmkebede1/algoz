@@ -31,6 +31,7 @@ function App() {
         </>
       ),
       children: [
+        { path: "home" },
         {
           path: "login",
           element: <LogInPage />,
