@@ -10,6 +10,7 @@ import Hero from "./components/Hero/Hero";
 import { useSelector, useDispatch } from "react-redux";
 import { getUser } from "./components/Redux/Reducers/authSllice";
 import ProtectedRoutes from "./components/Protect/ProtectedRoutes";
+import CourseCard from "./components/CourseCard/CourseCard";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -27,11 +28,10 @@ function App() {
       element: (
         <>
           <Navbar />
-          <Hero />
         </>
       ),
       children: [
-        { path: "home" },
+        { path: "home", element: <Hero /> },
         {
           path: "login",
           element: <LogInPage />,
@@ -59,8 +59,8 @@ function App() {
           element: <SignPage />,
         },
         {
-          path: "dashboard",
-          element: <Dashboard />,
+          path: "courses",
+          element: <CourseCard />,
         },
       ],
     },

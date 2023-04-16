@@ -49,13 +49,13 @@ const Dashboard = () => {
                 <NavLink to="/dashboard/users"> Users</NavLink>
               </MenuItem>
               <MenuItem key={3} icon={<MdCastForEducation />}>
-                <NavLink to="/courses"> Courses</NavLink>
+                <NavLink to="/dashboard/courses"> Courses</NavLink>
               </MenuItem>
               <MenuItem key={4} icon={<VideoCameraOutlined />}>
-                <NavLink to="/resources"> Resources</NavLink>
+                <NavLink to="/dashboard/resources"> Resources</NavLink>
               </MenuItem>
               <MenuItem key={5} icon={<OneToOneOutlined />}>
-                <NavLink to="/network"> Algoz Network</NavLink>
+                <NavLink to="/dashboard/network"> Algoz Network</NavLink>
               </MenuItem>
               <MenuItem key={6} icon={<UserOutlined />}>
                 <NavLink to="/me"> Profile</NavLink>
