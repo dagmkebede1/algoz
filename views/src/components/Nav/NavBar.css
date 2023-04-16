@@ -6,6 +6,11 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
+header {
+  margin: 0 auto;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(25, 25, 34, 0.05);
+}
 
 a {
   font-weight: 500;
@@ -17,13 +22,15 @@ a:hover {
 }
 
 .navbar {
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 0;
+  /* left: 0; */
   width: 100%;
-  height: 70px;
+  max-width: 1000px;
+  margin: 0 auto;
+  height: 50px;
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(25, 25, 34, 0.05);
+  /* box-shadow: 0 2px 4px rgba(25, 25, 34, 0.05); */
   z-index: 100;
 }
 
@@ -32,7 +39,6 @@ a:hover {
   justify-content: space-between;
   align-items: center;
   height: 100%;
-  width: 100%;
   padding: 0 20px;
   transition: all 0.4s ease-in-out;
 }
@@ -47,8 +53,9 @@ a:hover {
 }
 
 .navbar-logo img {
-  width: 50px;
+  width: 70px;
   margin-right: 10px;
+  vertical-align: middle;
 }
 
 /* .navbar-toggler {
@@ -84,7 +91,7 @@ a:hover {
 .navbar-link {
   display: block;
   padding: 10px 20px;
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: #333;
   text-decoration: none;
   border-radius: 5px;

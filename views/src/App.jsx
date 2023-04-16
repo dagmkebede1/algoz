@@ -48,7 +48,7 @@ function App() {
           element: <UserTable />,
         },
         {
-          path: "signup",
+          path: "resourse",
           element: <SignPage />,
         },
         {
