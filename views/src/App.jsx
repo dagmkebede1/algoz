@@ -6,6 +6,7 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import LogIn from "./components/Auth/Form";
 import SignPage from "./components/SignUpPage/SignUpPage";
 import Navbar from "./components/Nav/Navbar";
+import Hero from "./components/Hero/Hero";
 import { useSelector, useDispatch } from "react-redux";
 import { getUser } from "./components/Redux/Reducers/authSllice";
 import ProtectedRoutes from "./components/Protect/ProtectedRoutes";
@@ -23,7 +24,12 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Navbar />,
+      element: (
+        <>
+          <Navbar />
+          <Hero />
+        </>
+      ),
       children: [
         {
           path: "login",
