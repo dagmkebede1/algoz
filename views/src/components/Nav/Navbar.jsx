@@ -35,40 +35,75 @@ const Navbar = () => {
             </div>
             <ul className={`navbar-menu ${isOpen && "active"}`}>
               <li className="navbar-item">
-                <NavLink to={"/"} className="navbar-link">
+                <NavLink
+                  to={"/"}
+                  className={({ isActive, isPending }) =>
+                    isActive ? "navbar-link active" : "navbar-link"
+                  }
+                >
                   Home
                 </NavLink>
               </li>
               <li className="navbar-item">
-                <NavLink to="/about" className="navbar-link">
+                <NavLink
+                  to="/about"
+                  className={({ isActive, isPending }) =>
+                    isActive ? "navbar-link active" : "navbar-link"
+                  }
+                >
                   About Us
                 </NavLink>
               </li>
               <li className="navbar-item">
-                <NavLink to="/services" className="navbar-link">
+                <NavLink
+                  to="/services"
+                  className={({ isActive, isPending }) =>
+                    isActive ? "navbar-link active" : "navbar-link"
+                  }
+                >
                   Services
                 </NavLink>
               </li>
               <li className="navbar-item">
-                <NavLink to="/contact" className="navbar-link">
+                <NavLink
+                  to="/contact"
+                  className={({ isActive, isPending }) =>
+                    isActive ? "navbar-link active" : "navbar-link"
+                  }
+                >
                   Contact Us
                 </NavLink>
               </li>
               {isAuth ? (
                 <li className="navbar-item">
-                  <NavLink to="/dashboard" className="navbar-link">
+                  <NavLink
+                    to="/dashboard"
+                    className={({ isActive, isPending }) =>
+                      isActive ? "navbar-link active" : "navbar-link"
+                    }
+                  >
                     Dashboard
                   </NavLink>
                 </li>
               ) : (
                 <>
                   <li className="navbar-item">
-                    <NavLink to="/login" className="navbar-link">
+                    <NavLink
+                      to="/login"
+                      className={({ isActive, isPending }) =>
+                        isActive ? "navbar-link active" : "navbar-link"
+                      }
+                    >
                       Sign In
                     </NavLink>
                   </li>
                   <li className="navbar-item">
-                    <NavLink to="/signup" className="navbar-link">
+                    <NavLink
+                      to="/signup"
+                      className={({ isActive, isPending }) =>
+                        isActive ? "navbar-link active" : "navbar-link"
+                      }
+                    >
                       Sign Up
                     </NavLink>
                   </li>

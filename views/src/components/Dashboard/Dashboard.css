@@ -11,6 +11,11 @@
   color: #1890ff;
 }
 
+.active {
+  background-color: #1890ff;
+  color: white;
+}
+
 .ant_logo h2 {
   height: 60px !important;
   text-align: center !important;

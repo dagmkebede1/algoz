@@ -43,37 +43,116 @@ const Dashboard = () => {
             <>
               {" "}
               <MenuItem key={1} icon={<DashboardOutlined />}>
-                <NavLink to="/stat"> Stats</NavLink>
+                <NavLink
+                  className={({ isActive, isPending }) =>
+                    isActive ? "active" : ""
+                  }
+                  to="/stat"
+                >
+                  {" "}
+                  Stats
+                </NavLink>
               </MenuItem>
               <MenuItem key={2} icon={<UsergroupAddOutlined />}>
-                <NavLink to="/dashboard/users"> Users</NavLink>
+                <NavLink
+                  to="/dashboard/users"
+                  className={({ isActive, isPending }) =>
+                    isActive ? "active" : ""
+                  }
+                >
+                  {" "}
+                  Users
+                </NavLink>
               </MenuItem>
               <MenuItem key={3} icon={<MdCastForEducation />}>
-                <NavLink to="/dashboard/courses"> Courses</NavLink>
+                <NavLink
+                  to="/dashboard/courses"
+                  className={({ isActive, isPending }) =>
+                    isActive ? "active" : ""
+                  }
+                >
+                  Courses
+                </NavLink>
               </MenuItem>
               <MenuItem key={4} icon={<VideoCameraOutlined />}>
-                <NavLink to="/dashboard/resources"> Resources</NavLink>
+                <NavLink
+                  to="/dashboard/resources"
+                  className={({ isActive, isPending }) =>
+                    isActive ? "active" : ""
+                  }
+                >
+                  {" "}
+                  Resources
+                </NavLink>
               </MenuItem>
               <MenuItem key={5} icon={<OneToOneOutlined />}>
-                <NavLink to="/dashboard/network"> Algoz Network</NavLink>
+                <NavLink
+                  to="/dashboard/network"
+                  className={({ isActive, isPending }) =>
+                    isActive ? "active" : ""
+                  }
+                >
+                  {" "}
+                  Algoz Network
+                </NavLink>
               </MenuItem>
               <MenuItem key={6} icon={<UserOutlined />}>
-                <NavLink to="/me"> Profile</NavLink>
+                <NavLink
+                  to="/me"
+                  className={({ isActive, isPending }) =>
+                    isActive ? "active" : ""
+                  }
+                >
+                  {" "}
+                  Profile
+                </NavLink>
               </MenuItem>
             </>
           ) : (
             <>
               <MenuItem key={1} icon={<HomeOutlined />}>
-                <NavLink to="#"> StudySpace</NavLink>
+                <NavLink
+                  to="#"
+                  className={({ isActive, isPending }) =>
+                    isActive ? "active" : ""
+                  }
+                >
+                  {" "}
+                  StudySpace
+                </NavLink>
               </MenuItem>
               <MenuItem key={2} icon={<VideoCameraOutlined />}>
-                <NavLink to="#"> Resources</NavLink>
+                <NavLink
+                  to="#"
+                  className={({ isActive, isPending }) =>
+                    isActive ? "active" : ""
+                  }
+                >
+                  {" "}
+                  Resources
+                </NavLink>
               </MenuItem>
               <MenuItem key={3} icon={<OneToOneOutlined />}>
-                <NavLink to="#"> Algoz Network</NavLink>
+                <NavLink
+                  to="#"
+                  className={({ isActive, isPending }) =>
+                    isActive ? "active" : ""
+                  }
+                >
+                  {" "}
+                  Algoz Network
+                </NavLink>
               </MenuItem>
               <MenuItem key={4} icon={<UserOutlined />}>
-                <NavLink to="#"> Profile</NavLink>
+                <NavLink
+                  to="#"
+                  className={({ isActive, isPending }) =>
+                    isActive ? "active" : ""
+                  }
+                >
+                  {" "}
+                  Profile
+                </NavLink>
               </MenuItem>
             </>
           )}
