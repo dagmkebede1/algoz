@@ -36,7 +36,7 @@ const Dashboard = () => {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={["1"]}
+          // defaultSelectedKeys={["1"]}
           style={{ marginTop: "50px" }}
         >
           {user.role === "admin" ? (

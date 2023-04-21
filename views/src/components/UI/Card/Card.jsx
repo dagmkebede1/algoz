@@ -32,6 +32,7 @@ const CardTest = () => {
   };
 
   useEffect(() => {
+    console.log("useEffect running");
     axiosInstance
       .get("/courses")
       .then((resp) => {
@@ -131,9 +132,11 @@ const CardTest = () => {
                 <a href="">
                   <EditOutlined key="edit" />
                 </a>,
-                <button onClick={() => deleteCourse(course._id)}>
-                  <EllipsisOutlined key="ellipsis" />,
-                </button>,
+
+                <EllipsisOutlined
+                  key="ellipsis"
+                  onClick={() => deleteCourse(course._id)}
+                />,
               ]}
             >
               <Meta
