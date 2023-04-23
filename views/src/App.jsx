@@ -3,7 +3,7 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import LogInPage from "./components/LogInPage/LogInPage";
 import UserTable from "./components/UserTable/UserTable";
 import { QueryClientProvider, QueryClient } from "react-query";
-import LogIn from "./components/Auth/Form";
+import LogIn from "./components/Auth/Login";
 import SignPage from "./components/SignUpPage/SignUpPage";
 import Navbar from "./components/Nav/Navbar";
 import Hero from "./components/Hero/Hero";
@@ -17,6 +17,7 @@ import {
   Route,
   Link,
 } from "react-router-dom";
+import CourseForms from "./components/CourseForm/CourseForms";
 function App() {
   const queryClient = new QueryClient();
   const dispatch = useDispatch();
@@ -61,6 +62,14 @@ function App() {
         {
           path: "courses",
           element: <CourseCard />,
+        },
+        {
+          path: "courses/:courseId",
+          element: <CourseForms />,
+        },
+        {
+          path: "courses/add",
+          element: <CourseForms />,
         },
       ],
     },

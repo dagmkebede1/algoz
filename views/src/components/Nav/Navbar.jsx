@@ -36,7 +36,7 @@ const Navbar = () => {
             <ul className={`navbar-menu ${isOpen && "active"}`}>
               <li className="navbar-item">
                 <NavLink
-                  to={"/"}
+                  to="/home"
                   className={({ isActive, isPending }) =>
                     isActive ? "navbar-link active" : "navbar-link"
                   }
@@ -47,9 +47,9 @@ const Navbar = () => {
               <li className="navbar-item">
                 <NavLink
                   to="/about"
-                  className={({ isActive, isPending }) =>
-                    isActive ? "navbar-link active" : "navbar-link"
-                  }
+                  className={({ isActive, isPending }) => {
+                    return isActive ? "navbar-link active" : "navbar-link";
+                  }}
                 >
                   About Us
                 </NavLink>

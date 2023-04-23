@@ -1,7 +1,19 @@
-.login {
-  width: 400px;
+.login_container {
   padding: 20px;
-  margin: 70px auto 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  margin-top: 100px;
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  /* margin: 70px auto 0 auto; */
   box-shadow: 0px 0px 0px 1px #e8e4e4;
   border-radius: 10px;
   height: 400px;
@@ -18,11 +30,17 @@
   text-decoration: underline;
 }
 
-.loading-icon {
+.loading_icon {
   display: none;
   fill: white;
   color: white;
-  /* font-size: 2rem; */
+  animation: animate 2s infinite;
+  margin-right: 10px;
+}
+.loading_icon_load {
+  display: inline-block;
+  fill: white;
+  color: white;
   animation: animate 2s infinite;
   margin-right: 10px;
 }

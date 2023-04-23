@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "react-query";
-import { axiosInstance } from "../utility/axios";
+import { axiosInstance } from "../../utility/axios";
 
 const deleteFn = (data) => {
   return axiosInstance.delete(`/manage/users/${data._id}`);

@@ -1,11 +1,13 @@
 import LoginSvg from "../Svg/LoginSvg";
-import Login from "../../components/Auth/Form";
-import "./LogInpage.css";
+import Login from "../Auth/Login";
+import styles from "./loginPage.module.css";
+import Navbar from "../Nav/Navbar";
 
 function LogInPage() {
   return (
-    <div className="">
-      <div className="login-container">
+    <div>
+      <Navbar />
+      <div className={styles.login_container}>
         <Login />
         <LoginSvg />
       </div>
