@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { axiosInstance } from "../utility/axios";
+import { axiosInstance } from "../../utility/axios";
 
 const updateFn = (data) => {
   // console.log(data);
