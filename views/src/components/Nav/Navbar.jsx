@@ -36,7 +36,7 @@ const Navbar = () => {
             <ul className={`navbar-menu ${isOpen && "active"}`}>
               <li className="navbar-item">
                 <NavLink
-                  to="/home"
+                  to="/"
                   className={({ isActive, isPending }) =>
                     isActive ? "navbar-link active" : "navbar-link"
                   }
@@ -113,9 +113,7 @@ const Navbar = () => {
           </div>
         </nav>
       </header>
-      <div>
-        <Outlet />
-      </div>
+      <div>{/* <Outlet /> */}</div>
     </>
   );
 };

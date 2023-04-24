@@ -28,20 +28,17 @@ function App() {
       path: "/",
       element: (
         <>
-          <Navbar />
+          <Hero />
         </>
       ),
-      children: [
-        { path: "home", element: <Hero /> },
-        {
-          path: "login",
-          element: <LogInPage />,
-        },
-        {
-          path: "signup",
-          element: <SignPage />,
-        },
-      ],
+    },
+    {
+      path: "login",
+      element: <LogInPage />,
+    },
+    {
+      path: "signup",
+      element: <SignPage />,
     },
     {
       path: "/dashboard",
