@@ -85,18 +85,6 @@ const FormDisabledDemo = () => {
   return (
     <>
       <div className="signup-container">
-        {
-          // errResponse &&
-          //   Swal.fire({
-          //     icon: "error",
-          //     title: "Oops...",
-          //     text: `${errResponse}`,
-          //     footer: '<a href="">Why do I have this issue?</a>',
-          //   })
-          // errResponse.split(".").map((err) => {
-          //   return <p style={{ color: "red", paddingBottom: "5px" }}>{err}</p>;
-          // })
-        }
         <Form
           labelCol={{
             span: 4,
