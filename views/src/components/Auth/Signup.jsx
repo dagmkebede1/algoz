@@ -1,31 +1,29 @@
-import { PlusOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
-import { FaSpinner } from "react-icons/fa";
+import {
+  PlusOutlined,
+  LockOutlined,
+  UserOutlined,
+  PhoneOutlined,
+} from "@ant-design/icons";
 import Cookies from "universal-cookie";
 import Swal from "sweetalert2";
 import validator from "validator";
 import { useSelector, useDispatch } from "react-redux";
 import { getUser } from "../Redux/Reducers/authSllice";
-import "./Signup.css";
+import { Navigate, useNavigate } from "react-router-dom";
+import styles from "./signup.module.css";
 import axios from "axios";
-import {
-  Button,
-  Cascader,
-  Checkbox,
-  DatePicker,
-  Form,
-  Input,
-  InputNumber,
-  Radio,
-  Select,
-  Switch,
-  TreeSelect,
-  Upload,
-} from "antd";
+import Navbar from "../Nav/Navbar";
+import { Button, Cascader, Checkbox, DatePicker, Form, Input } from "antd";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
+import CustomUpload from "../UI/Upload/CustomUpload";
+import CustomInput from "../UI/Input/CustomInput";
+import CustomSelect from "../UI/Select/CustomSelect";
+import PrimaryBtn from "../UI/PrimaryBtn/PrimaryBtn";
 
+// initializing the cookie
 const cookies = new Cookies();
 
 const FormDisabledDemo = () => {
@@ -33,21 +31,11 @@ const FormDisabledDemo = () => {
   const [errResponse, setErrResponse] = useState("");
   const [imageUrl, setImageUrl] = useState("");
 
+  const navigate = useNavigate();
+
   let dispatch = useDispatch();
 
-  let handleChange = ({ fileList }) => {
-    //---------------^^^^^----------------
-    // this is equivalent to your "const img = event.target.files[0]"
-    // here, antd is giving you an array of files, just like event.target.files
-    // but the structure is a bit different that the original file
-    // the original file is located at the `originFileObj` key of each of this files
-    // so `event.target.files[0]` is actually fileList[0].originFileObj
-    // console.log("fileList", fileList);
-    // setForField({ fileList });
-    // console.log(forField);
-    // you store them in state, so that you can make a http req with them later
-    //   this.setState({ fileList });
-  };
+  let handleChange = ({ fileList }) => {};
 
   const onFinish = (values) => {
     console.log(values);
@@ -69,6 +57,7 @@ const FormDisabledDemo = () => {
         cookies.set("jwt", res.data.token, { path: "/" });
         setIsSubmitting(false);
         dispatch(getUser());
+        navigate("/");
       })
       .catch((err) => {
         console.log(err.response?.data?.message);
@@ -76,15 +65,20 @@ const FormDisabledDemo = () => {
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: `${err.response?.data?.message}`,
-          // footer: `${(<NavLink to={"/signup"}>Return to the Form</NavLink>)}`,
+          text: `${
+            err.response?.data?.message
+              ? err.response?.data?.message
+              : "Internal Server Error"
+          }`,
         });
         setIsSubmitting(false);
       });
   };
+
   return (
     <>
-      <div className="signup-container">
+      <Navbar />
+      <div className={styles.container}>
         <Form
           labelCol={{
             span: 4,
@@ -98,17 +92,11 @@ const FormDisabledDemo = () => {
           }}
           onFinish={onFinish}
         >
-          <Form.Item name="photo">
-            <Upload
-              listType="picture-circle"
-              className="avatar-uploader"
-              maxCount={1}
-              customRequest={(info) => {
-                console.log(info.file);
-              }}
-              onChange={handleChange}
-              showUploadList={false}
-              beforeUpload={() => false}
+          <Form.Item>
+            <CustomUpload
+              name={"photo"}
+              maxFile={1}
+              listType={"picture-circle"}
             >
               <div>
                 {imageUrl ? (
@@ -133,7 +121,7 @@ const FormDisabledDemo = () => {
                   </>
                 )}
               </div>
-            </Upload>
+            </CustomUpload>
           </Form.Item>
           <Form.Item
             name="firstName"
@@ -144,7 +132,12 @@ const FormDisabledDemo = () => {
               },
             ]}
           >
-            <Input className="form-item" placeholder="First Name" />
+            <CustomInput
+              sideLabel={"FirstName"}
+              allowClear={true}
+              placeholder={"First Name"}
+              name={"firstName"}
+            />
           </Form.Item>
           <Form.Item
             name="lastName"
@@ -155,7 +148,12 @@ const FormDisabledDemo = () => {
               },
             ]}
           >
-            <Input className="form-item" placeholder="Last Name" />
+            <CustomInput
+              placeholder={"Last Name"}
+              sideLabel={"LastName"}
+              name={"lastName"}
+              allowClear={true}
+            />
           </Form.Item>
           <Form.Item
             name="email"
@@ -166,11 +164,11 @@ const FormDisabledDemo = () => {
               },
             ]}
           >
-            <Input
-              prefix={
-                <UserOutlined className="site-form-item-icon form-item" />
-              }
-              placeholder="email address"
+            <CustomInput
+              name={"email"}
+              prefix={<UserOutlined />}
+              placeholder={"Email"}
+              allowClear={true}
             />
           </Form.Item>
           <Form.Item
@@ -182,12 +180,12 @@ const FormDisabledDemo = () => {
               },
             ]}
           >
-            <Input
-              prefix={
-                <LockOutlined className="site-form-item-icon form-item" />
-              }
-              type="password"
-              placeholder="Password"
+            <CustomInput
+              type={"password"}
+              allowClear={true}
+              placeholder={"Password"}
+              name={"password"}
+              prefix={<LockOutlined></LockOutlined>}
             />
           </Form.Item>
           <Form.Item
@@ -199,39 +197,36 @@ const FormDisabledDemo = () => {
               },
             ]}
           >
-            <Input
-              prefix={
-                <LockOutlined className="site-form-item-icon form-item" />
-              }
-              type="password"
-              placeholder="Password Confirmation"
+            <CustomInput
+              type={"password"}
+              allowClear={true}
+              placeholder={"Password Confirm"}
+              prefix={<LockOutlined />}
             />
           </Form.Item>
           <Form.Item name="gender">
-            <Select placeholder="Gender">
-              <Select.Option value="Male">Male</Select.Option>
-              <Select.Option value="Female">Female</Select.Option>
-            </Select>
+            <CustomSelect
+              placeholder={"Select your Gender"}
+              optionData={[
+                { value: "Male", label: "Male" },
+                { value: "Female", label: "Female" },
+              ]}
+            />
           </Form.Item>
 
           <Form.Item name="phone">
-            <Input placeholder="Phone Number" />
+            <CustomInput
+              prefix={<PhoneOutlined />}
+              allowClear={true}
+              placeholder={"Phone Number"}
+            />
           </Form.Item>
 
           <Form.Item name="birthdate">
             <DatePicker placeholder="BirthDate" />
           </Form.Item>
           <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-            >
-              <FaSpinner
-                className={isSubmitting ? "loading-icon load" : "loading-icon"}
-              />
-              <p style={{ color: "white" }}>Create </p>
-            </Button>
+            <PrimaryBtn isSubmitting={isSubmitting} message={"Sign Up"} />
           </Form.Item>
         </Form>
       </div>

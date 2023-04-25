@@ -5,6 +5,8 @@ import { UploadOutlined } from "@ant-design/icons";
 import { Input, Select, Button, message, Upload, Form, Space } from "antd";
 
 const CustomInput = ({
+  prefix,
+  suffix,
   onChange,
   name,
   className,
@@ -26,7 +28,9 @@ const CustomInput = ({
           defaultValue={defaultValue}
           name={name}
           type={type}
-          onBeforeInput={sideLabel}
+          addonBefore={sideLabel}
+          prefix={prefix}
+          suffix={suffix}
         />
       ) : (
         <Input
@@ -35,9 +39,11 @@ const CustomInput = ({
           className={className}
           onChange={onChange}
           defaultValue={defaultValue}
-          onBeforeInput={sideLabel}
+          addonBefore={sideLabel}
           name={name}
           type={type}
+          prefix={prefix}
+          suffix={suffix}
         />
       )}
     </>

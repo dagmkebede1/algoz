@@ -1,6 +1,6 @@
 import SignUpSvg from "../Svg/SignUpSvg";
 import Signup from "../Auth/Signup";
-import "./SignUpPage.css";
+// import "./SignUpPage.css";
 
 import React from "react";
 
@@ -17,7 +17,7 @@ function SignUpPage() {
         Let's Create you Acount !
       </p>
       <div className="signup-page-container">
-        <SignUpSvg />
+        {/* <SignUpSvg /> */}
         <Signup />
       </div>
     </div>
