@@ -80,21 +80,22 @@ const FormDisabledDemo = () => {
       <Navbar />
       <div className={styles.container}>
         <Form
-          labelCol={{
-            span: 4,
-          }}
-          wrapperCol={{
-            span: 14,
-          }}
+          // labelCol={{
+          //   span: 4,
+          // }}
+          // wrapperCol={{
+          //   span: 14,
+          // }}
           layout="horizontal"
           style={{
-            textAlign: "center",
+            width: "100%",
           }}
           onFinish={onFinish}
         >
-          <Form.Item>
+          <Form.Item style={{ width: "100" }}>
             <CustomUpload
               name={"photo"}
+              label={"Picture"}
               maxFile={1}
               listType={"picture-circle"}
             >

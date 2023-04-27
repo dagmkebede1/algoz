@@ -4,6 +4,7 @@ import "./NavBar.css";
 import { Outlet, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Logo from "./Logo/Logo";
+import DropdownMenu from "../UI/Dropdown/Dropdown";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -73,6 +74,9 @@ const Navbar = () => {
                 >
                   Contact Us
                 </NavLink>
+              </li>
+              <li className="navbar-item">
+                <DropdownMenu />
               </li>
               {isAuth ? (
                 <li className="navbar-item">

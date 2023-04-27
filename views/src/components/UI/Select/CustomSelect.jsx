@@ -17,6 +17,9 @@ const CustomSelect = ({ mode, placeholder, optionData }) => {
   return (
     <>
       <Select
+        style={{
+          padding: "0px 0",
+        }}
         mode={mode}
         options={optionData}
         placeholder={placeholder}

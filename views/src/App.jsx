@@ -7,6 +7,7 @@ import LogIn from "./components/Auth/Login";
 import SignPage from "./components/SignUpPage/SignUpPage";
 import Navbar from "./components/Nav/Navbar";
 import Hero from "./components/Hero/Hero";
+import SignUP from "./components/Auth/Signup";
 import { useSelector, useDispatch } from "react-redux";
 import { getUser } from "./components/Redux/Reducers/authSllice";
 import ProtectedRoutes from "./components/Protect/ProtectedRoutes";
@@ -18,6 +19,7 @@ import {
   Link,
 } from "react-router-dom";
 import CourseForms from "./components/CourseForm/CourseForms";
+import Signup from "./components/Auth/Signup";
 function App() {
   const queryClient = new QueryClient();
   const dispatch = useDispatch();
@@ -38,7 +40,7 @@ function App() {
     },
     {
       path: "signup",
-      element: <SignPage />,
+      element: <Signup />,
     },
     {
       path: "/dashboard",

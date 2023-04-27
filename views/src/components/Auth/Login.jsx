@@ -11,19 +11,22 @@ import { getUser } from "../Redux/Reducers/authSllice";
 import { useSelector, useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 import { Opacity } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 const cookies = new Cookies();
+
 const LogIn = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errResponse, setErrResponse] = useState("");
   let dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const onFinish = (values) => {
     setIsSubmitting(true);
     axios
       .post("http://localhost:5000/login", values)
       .then((res) => {
-        console.log(res.data.token);
         cookies.set("us_id", res.data.token, {
           path: "/",
           // secure: false,
@@ -32,13 +35,13 @@ const LogIn = () => {
         });
         setIsSubmitting(false);
         dispatch(getUser());
+        navigate("/");
       })
       .catch((err) => {
         console.log(err.response.data.message);
         setErrResponse(err.response.data.message);
         setIsSubmitting(false);
       });
-    console.log("Received values of form: ", values);
   };
 
   return (
