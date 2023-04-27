@@ -9,7 +9,7 @@ function SignUpPage() {
   return (
     <div className="">
       <div className={styles.container}>
-        <div className={styles.img_Container}>
+        <div className={styles.img_container}>
           <img src={signUpImage} alt="" />
         </div>
         <div className={styles.form}>
