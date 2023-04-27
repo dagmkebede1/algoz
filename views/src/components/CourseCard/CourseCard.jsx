@@ -26,20 +26,6 @@ const Cards = () => {
       });
   }, []);
 
-  // const { isLoading, error, data } = useQuery("course", () =>
-  //   axiosInstance
-  //     .get("/courses")
-  //     .then(
-  //       (resp) => resp.data.data.allCourse
-
-  //       // setCourses(resp.data.data.allCourse);
-  //       // setLoading(false);
-  //     )
-  //     .catch((err) => {
-  //       return err.response.data;
-  //     })
-  // );
-
   if (isLoading) return <SkeletonLoader />;
 
   if (error) return "An error has occurred: " + error.message;

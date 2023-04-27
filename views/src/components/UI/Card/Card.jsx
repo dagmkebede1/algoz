@@ -77,13 +77,7 @@ const CardTest = () => {
                 />,
               ]}
             >
-              <Meta
-                // avatar={
-                //   <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />
-                // }
-                title={course.title}
-                description={course.desc}
-              />
+              <Meta title={course.title} description={course.desc} />
               <p style={{ margin: "10px auto 0 auto" }}>{course.price} ETB</p>
             </Card>
           </>
