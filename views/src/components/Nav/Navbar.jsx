@@ -75,21 +75,22 @@ const Navbar = () => {
                   Contact Us
                 </NavLink>
               </li>
-              <li className="navbar-item">
-                <DropdownMenu />
-              </li>
+
               {isAuth ? (
                 <li className="navbar-item">
-                  <NavLink
-                    to="/dashboard"
-                    className={({ isActive, isPending }) =>
-                      isActive ? "navbar-link active" : "navbar-link"
-                    }
-                  >
-                    Dashboard
-                  </NavLink>
+                  <DropdownMenu />
                 </li>
               ) : (
+                // <li className="navbar-item">
+                //   <NavLink
+                //     to="/dashboard"
+                //     className={({ isActive, isPending }) =>
+                //       isActive ? "navbar-link active" : "navbar-link"
+                //     }
+                //   >
+                //     Dashboard
+                //   </NavLink>
+                // </li>
                 <>
                   <li className="navbar-item">
                     <NavLink
