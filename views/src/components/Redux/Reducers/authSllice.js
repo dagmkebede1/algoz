@@ -22,6 +22,12 @@ export const getUser = createAsyncThunk("getUser", async (name, thunkAPI) => {
 const authSlice = createSlice({
   name: "auth",
   initialState: initialState,
+  reducers: {
+    logout(state, action) {
+      state.isAuth = false;
+      state.user = {};
+    },
+  },
   extraReducers: {
     [getUser.pending]: (state) => {
       state.isLoading = true;
@@ -38,7 +44,7 @@ const authSlice = createSlice({
     },
   },
 });
-
+export const { logout } = authSlice.actions;
 export default authSlice.reducer;
 
 // export const getUserAction = authSlice.actions;
