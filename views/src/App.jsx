@@ -20,6 +20,7 @@ import {
 } from "react-router-dom";
 import CourseForms from "./components/CourseForm/CourseForms";
 import Signup from "./components/Auth/Signup";
+import SignUpPage from "./components/SignUpPage/SignUpPage";
 function App() {
   const queryClient = new QueryClient();
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ function App() {
     },
     {
       path: "signup",
-      element: <Signup />,
+      element: <SignUpPage />,
     },
     {
       path: "/dashboard",

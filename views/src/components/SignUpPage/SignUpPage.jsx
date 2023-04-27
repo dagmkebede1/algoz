@@ -1,24 +1,20 @@
 import SignUpSvg from "../Svg/SignUpSvg";
-import Signup from "../Auth/Signup";
-// import "./SignUpPage.css";
+import SignUp from "../Auth/Signup";
+import signUpImage from "./signupTeam.svg";
+import styles from "./signup.module.css";
 
 import React from "react";
 
 function SignUpPage() {
   return (
     <div className="">
-      {/* <p
-        style={{
-          color: "green",
-          textAlign: "center",
-          marginTop: "100px",
-        }}
-      >
-        Let's Create you Acount !
-      </p> */}
-      <div className="">
-        {/* <SignUpSvg /> */}
-        <Signup />
+      <div className={styles.container}>
+        <div className={styles.img_Container}>
+          <img src={signUpImage} alt="" />
+        </div>
+        <div className={styles.form}>
+          <SignUp />
+        </div>
       </div>
     </div>
   );

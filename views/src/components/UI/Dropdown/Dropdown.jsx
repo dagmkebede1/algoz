@@ -10,11 +10,15 @@ import { Dropdown, Space, Button } from "antd";
 import { NavLink } from "react-router-dom";
 import { logout } from "../../Redux/Reducers/authSllice";
 import { useDispatch } from "react-redux";
+import Cookie from "universal-cookie";
+
+const cookie = new Cookie();
 
 const DropdownMenu = () => {
   const dispatch = useDispatch();
   const logOutHandler = () => {
     dispatch(logout());
+    cookie.remove("us_id");
   };
 
   const items = [
@@ -22,7 +26,7 @@ const DropdownMenu = () => {
       key: "1",
       label: (
         <NavLink rel="noopener noreferrer" to="/dashboard">
-          Dashboard
+          <Button>Dashboard</Button>
         </NavLink>
       ),
       icon: <BarChartOutlined />,
