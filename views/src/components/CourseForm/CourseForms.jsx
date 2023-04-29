@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./CourseForm.module.css";
 import TextArea from "antd/es/input/TextArea";
 import { Input, Select, Form } from "antd";
@@ -6,6 +6,7 @@ import { useState } from "react";
 import CustomInput from "../UI/Input/CustomInput";
 import CustomUpload from "../UI/Upload/CustomUpload";
 import CustomSelect from "../UI/Select/CustomSelect";
+import { axiosInstance } from "../utility/axios";
 
 const data = [
   {
@@ -28,15 +29,35 @@ const data = [
 
 const { Option } = Select;
 
-const CourseForms = (data) => {
+const CourseForms = () => {
+  const [instructor, setInstructor] = useState([]);
+
+  useEffect(() => {
+    axiosInstance.get("/manage/users").then((res) => {
+      // console.log(res.data.allUser);
+      let filteredInst = res.data.allUser.filter(
+        (user) => user.role == "instructor"
+      );
+      console.log(filteredInst);
+      setInstructor(filteredInst);
+    });
+  }, []);
+
   const [isLoading, setIsLoading] = useState(false);
   const onFinish = (item) => {
     console.log(item);
+    const formData = new FormData();
+    formData.append("image", item?.image?.fileList[0]?.originFileObj);
+    formData.append("title", item.title);
+    formData.append("desc", item.desc);
+    formData.append("price", item.price);
+    formData.append("instructor", item.instructor);
   };
 
   return (
     <div className={styles.form_container}>
-      <Form action="" onFinish={onFinish}>
+      <h2>Create A Crourse </h2>
+      <Form action="" onFinish={onFinish} className={styles.form}>
         <Form.Item
           rules={[
             {
@@ -49,12 +70,12 @@ const CourseForms = (data) => {
             maxFile={1}
             listType="picture-circle"
             label="Select a Picture"
-            name="courseImage"
+            name="image"
             accept=".png, jpeg, .gif, .jpg"
           />
         </Form.Item>
         <Form.Item
-          name="course_title"
+          name="title"
           rules={[
             {
               required: true,
@@ -89,7 +110,7 @@ const CourseForms = (data) => {
           />
         </Form.Item>
         <Form.Item
-          name={"course_price"}
+          name={"price"}
           rules={[
             {
               required: true,
@@ -112,11 +133,22 @@ const CourseForms = (data) => {
               message: "please select the course Instructor",
             },
           ]}
-          name="course_inst"
+          name="instructor"
         >
-          {/* <CustomSelect
-            optionData={data}
+          <Select
+            style={{
+              padding: "0px 0",
+            }}
+            // defaultValue={"Samson"}
             mode={"multiple"}
+            options={instructor}
+            placeholder={"Enter a Course Instructor Name"}
+            optionLabelProp="label"
+          ></Select>
+          {/* <CustomSelect
+            defaultValue={"Samson"}
+            optionData={data}
+            // mode={"multiple"}
             placeholder={"Select an Instructor"}
           /> */}
         </Form.Item>

@@ -15,7 +15,7 @@ const courseSchema = new mongoose.Schema({
   price: {
     type: Number,
   },
-  photo: {
+  image: {
     type: String,
     // required: [true, 'Please provide course photo']
   },

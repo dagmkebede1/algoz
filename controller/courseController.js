@@ -13,7 +13,7 @@ exports.createCourse = CatchAsync(async (req, res, next) => {
     instructor: req.body.instructor,
   };
   if (req.file) {
-    theBodyData.photo = req.file.filename;
+    theBodyData.image = req.file.filename;
   }
 
   const savedCourse = await Course.create(theBodyData);
@@ -32,7 +32,7 @@ exports.updateCourse = CatchAsync(async (req, res, next) => {
   if (req.body.price) theBodyData.price = req.body.price;
   if (req.body.instructor) theBodyData.instructor = req.body.instructor;
   if (req.file) {
-    theBodyData.photo = req.file.filename;
+    theBodyData.image = req.file.filename;
   }
   const id = req.params.id;
   const editedCourse = await Course.findByIdAndUpdate(

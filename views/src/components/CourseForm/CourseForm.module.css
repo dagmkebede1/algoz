@@ -1,9 +1,16 @@
 /* ECF2FF */
-
+.form {
+  /* display: flex; */
+}
+.form_container h2 {
+  color: #7d7ecb;
+}
 .form_container {
   display: flex;
   align-items: center;
+  gap: 20px;
   justify-content: center;
+  /* overflow-y: scroll; */
 }
 .form_container form {
   /* text-align: center; */

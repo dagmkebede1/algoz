@@ -204,10 +204,11 @@ const Dashboard = () => {
           style={{
             margin: "24px 16px",
             padding: `24px 24px 24px ${collapsed ? "80px" : "230px"}`,
-            // minHeight: 280,
-            height: "100vh",
+            minHeight: 280,
+            // height: "100vh",
             background: colorBgContainer,
-            // overflow: scrollY,
+            transition: "all .3s ease-in-out",
+            overflow: "scroll",
           }}
         >
           <Outlet />
