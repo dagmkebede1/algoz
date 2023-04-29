@@ -67,7 +67,7 @@ const CardTest = () => {
                 <Link to={"/"}>
                   <SettingOutlined key="setting" />
                 </Link>,
-                <Link to={"/"}>
+                <Link to={"/dashboard/course/edit"}>
                   <EditOutlined key="edit" />
                 </Link>,
 

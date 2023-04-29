@@ -13,13 +13,14 @@ const { Option } = Select;
 //   }
 //]
 
-const CustomSelect = ({ mode, placeholder, optionData }) => {
+const CustomSelect = ({ mode, placeholder, optionData, defaultValue }) => {
   return (
     <>
       <Select
         style={{
           padding: "0px 0",
         }}
+        defaultValue={defaultValue}
         mode={mode}
         options={optionData}
         placeholder={placeholder}

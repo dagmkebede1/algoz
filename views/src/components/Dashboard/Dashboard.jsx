@@ -29,7 +29,12 @@ const Dashboard = () => {
 
   return (
     <Layout style={{ height: "100vh" }}>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
+      <Sider
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+        style={{ position: "fixed", top: 0, height: "100vh" }}
+      >
         <div className="ant_logo">
           <h2>{collapsed ? "AI" : "Algoz"}</h2>
         </div>
@@ -198,9 +203,11 @@ const Dashboard = () => {
         <Content
           style={{
             margin: "24px 16px",
-            padding: 24,
-            minHeight: 280,
+            padding: `24px 24px 24px ${collapsed ? "80px" : "230px"}`,
+            // minHeight: 280,
+            height: "100vh",
             background: colorBgContainer,
+            // overflow: scrollY,
           }}
         >
           <Outlet />

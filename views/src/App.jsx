@@ -21,6 +21,8 @@ import {
 import CourseForms from "./components/CourseForm/CourseForms";
 import Signup from "./components/Auth/Signup";
 import SignUpPage from "./components/SignUpPage/SignUpPage";
+import CourseWrapper from "./components/Courses/CourseWrapper";
+
 function App() {
   const queryClient = new QueryClient();
   const dispatch = useDispatch();
@@ -61,16 +63,20 @@ function App() {
         },
         {
           path: "courses",
-          element: <CourseCard />,
+          element: <CourseWrapper />,
         },
         {
-          path: "courses/:courseId",
+          path: "courses/new",
           element: <CourseForms />,
         },
-        {
-          path: "courses/add",
-          element: <CourseForms />,
-        },
+        // {
+        //   path: "courses/:courseId",
+        //   element: <CourseForms />,
+        // },
+        // {
+        //   path: "courses/add",
+        //   element: <CourseForms />,
+        // },
       ],
     },
   ]);

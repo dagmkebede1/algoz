@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./CourseForm.module.css";
 import TextArea from "antd/es/input/TextArea";
-import { Input, Select } from "antd";
+import { Input, Select, Form } from "antd";
 import { useState } from "react";
 import CustomInput from "../UI/Input/CustomInput";
 import CustomUpload from "../UI/Upload/CustomUpload";
@@ -114,11 +114,11 @@ const CourseForms = (data) => {
           ]}
           name="course_inst"
         >
-          <CustomSelect
+          {/* <CustomSelect
             optionData={data}
             mode={"multiple"}
             placeholder={"Select an Instructor"}
-          />
+          /> */}
         </Form.Item>
         <Form.Item>
           <button className={styles.btn}>Update</button>

@@ -4,6 +4,8 @@ import { axiosInstance } from "../utility/axios";
 import { Skeleton } from "antd";
 import style from "./CourseCard.module.css";
 import { useQuery } from "react-query";
+import CourseFrom from "./CourseFrom";
+import { Button } from "antd";
 
 const SkeletonLoader = () => <Skeleton active />;
 
@@ -12,6 +14,7 @@ const Cards = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     axiosInstance
@@ -32,7 +35,9 @@ const Cards = () => {
 
   return (
     <>
-      <Card />;
+      <Button onClick={() => setIsEditing(true)}>Create New</Button>
+      {isEditing ? <CourseFrom /> : <Card />}
+      {/* <Card />; */}
     </>
   );
 };

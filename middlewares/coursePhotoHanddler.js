@@ -24,8 +24,8 @@ const fileFilter = function (req, file, cb) {
 
 const upload = multer({
   storage: storage,
-  limits: { fieldSize: 1024 * 1024 * 5 },
+  // limits: { fieldSize: 1024 * 1024 * 5 },
   fileFilter: fileFilter,
 });
 
-exports.coursePhotoUploader = upload.single("photo");
+exports.coursePhotoUploader = upload.single("image");

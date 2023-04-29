@@ -1,10 +1,10 @@
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="number"],
-input[type="date"],
-#gender,
-select {
+.container input[type="text"],
+.container input[type="email"],
+.container input[type="password"],
+.container input[type="number"],
+.container input[type="date"],
+.container #gender,
+.container select {
   width: 100%;
   padding: 6px 16px !important;
   margin-bottom: 5px !important;

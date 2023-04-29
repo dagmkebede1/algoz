@@ -1,0 +1,11 @@
+.filter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+/* button {
+  padding: 8px 12px;
+} */
+.courseList {
+}
