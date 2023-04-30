@@ -32,7 +32,26 @@
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
 }
-
+.instructor_lists {
+  display: flex;
+}
+.instructor_lists li {
+  list-style-type: none;
+  color: blueviolet;
+}
+.course_action_btn {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.more_info {
+  display: flex;
+  justify-content: space-between;
+}
+.price {
+  font-weight: 700;
+  color: orange;
+}
 .card h2 {
   font-size: 1.5rem;
   margin: 1rem 0;

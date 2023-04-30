@@ -7,8 +7,6 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     // cd(null, new Date().toString() + file.originalname);
-
-    //user-28649179-33336668.jpg
     const ext = file.mimetype.split("/")[1];
     cb(null, `course-${req.user.id}-${Date.now()}.${ext}`);
   },

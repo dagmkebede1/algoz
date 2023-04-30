@@ -12,10 +12,8 @@ const questionRouter = require("./route/questionRouter");
 // const hireInstructRouter = require("./route/hiredInstructRouter");
 // const studySpaceRouter = require("./route/studyspaceRouter");
 // const announcementRouter = require("./route/announcementRouter");
-
 // const manageRouter = require("./route/manageRouter");
 // const getRouter = require("./route/getRouter");
-
 const answerRouter = require("./route/answerRouter");
 const path = require("path");
 const globalErrorHanddler = require("./middlewares/errorHanddler");
@@ -27,8 +25,9 @@ const xss = require("xss-clean");
 const hpp = require("hpp");
 const cors = require("cors");
 const app = express();
-
+// console.log(path.join(__dirname, "public"));
 //Secure the Header
+app.use("/public", express.static(path.join(__dirname, "public")));
 // app.use(helmet());
 app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 //Limit the requests from the same IP's....protections against {DDOS & brute force attacks}
@@ -47,8 +46,6 @@ app.use(cookieParser());
 
 // app.set("view engine", "pug");
 // app.set("views", path.join(__dirname, "views"));
-
-app.use(express.static(path.join(__dirname, "public")));
 
 //Data Sanitization against NoSQL query injections
 app.use(mongoSanitize());

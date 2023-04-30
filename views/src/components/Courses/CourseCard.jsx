@@ -2,8 +2,16 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./course_card.module.css";
 import { axiosInstance } from "../utility/axios";
-import { AudioOutlined, RightOutlined, LeftOutlined } from "@ant-design/icons";
+import {
+  AudioOutlined,
+  RightOutlined,
+  LeftOutlined,
+  DeleteOutlined,
+  EditOutlined,
+} from "@ant-design/icons";
 import { apiBase } from "../utility/api";
+import { Button } from "antd";
+import { NavLink } from "react-router-dom";
 
 const CardComponent = () => {
   const [items, setItems] = useState([]);
@@ -13,7 +21,6 @@ const CardComponent = () => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await axiosInstance.get("/courses");
-
       setItems(result.data.data.allCourse);
       console.log(result.data.data.allCourse);
     };
@@ -25,13 +32,40 @@ const CardComponent = () => {
   const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
 
   const renderItems = currentItems.map((item) => (
-    <div className={styles.card} key={item.id}>
+    <div className={styles.card} key={item._id}>
       <img
         src={`${apiBase.url}/public/img/course/${item.image}`}
         alt={item.title}
       />
       <h2>{item.title}</h2>
-      <p>{item.desc}</p>
+      <div className={styles.more_info}>
+        <div>
+          <p>{item.desc}</p>
+          <ul className={styles.instructor_lists}>
+            {item.instructor.map((inst) => {
+              return (
+                <li key={inst._id}>
+                  {inst.firstName} {inst.lastName}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        <div className={styles.price}>
+          <p>{item.price} ETB</p>
+        </div>
+      </div>
+      <div className={styles.course_action_btn}>
+        <Button>
+          <NavLink to={`/dashboard/courses/${item.title}`}>
+            <EditOutlined /> Edit
+          </NavLink>
+        </Button>
+        <Button>
+          <DeleteOutlined />
+          delete
+        </Button>
+      </div>
     </div>
   ));
 
