@@ -14,7 +14,6 @@ const CardComponent = () => {
     const fetchData = async () => {
       const result = await axiosInstance.get("/courses");
 
-      //   axios("https://example.com/api/items");
       setItems(result.data.data.allCourse);
       console.log(result.data.data.allCourse);
     };
