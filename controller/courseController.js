@@ -6,6 +6,7 @@ const factory = require("./factoryController");
 
 // Create a Course
 exports.createCourse = CatchAsync(async (req, res, next) => {
+  console.log(req.body);
   const theBodyData = {
     title: req.body.title,
     desc: req.body.desc,
@@ -74,7 +75,7 @@ exports.findAllCourse = CatchAsync(async (req, res, next) => {
       regEx,
       (match) => `-${operatorMap[match]}-`
     );
-    const options = ["price", "rating"];
+    const options = ["price", "title"];
     filters = filters.split(",").forEach((item) => {
       const [field, operator, value] = item.split("-");
       if (options.includes(field)) {

@@ -52,8 +52,8 @@ exports.updateMe = CatchAsync(async (req, res, next) => {
   if (filteredBody.gender) {
     thingsToBeUpdated.gender = filteredBody.gender;
   }
-  if (filteredBody.photo) {
-    thingsToBeUpdated.photo = filteredBody.photo;
+  if (filteredBody.image) {
+    thingsToBeUpdated.image = filteredBody.image;
   }
   //3) Update user document
   const updatedUser = await User.findByIdAndUpdate(

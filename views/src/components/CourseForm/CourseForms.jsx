@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import styles from "./CourseForm.module.css";
 import TextArea from "antd/es/input/TextArea";
-import { Input, Select, Form } from "antd";
+import { Input, Select, Form, Space } from "antd";
 import { useState } from "react";
 import CustomInput from "../UI/Input/CustomInput";
 import CustomUpload from "../UI/Upload/CustomUpload";
 import CustomSelect from "../UI/Select/CustomSelect";
 import { axiosInstance } from "../utility/axios";
+import PrimaryBtn from "../UI/PrimaryBtn/PrimaryBtn";
 
 const data = [
   {
@@ -29,8 +30,9 @@ const data = [
 
 const { Option } = Select;
 
-const CourseForms = () => {
+const CourseForms = (isEditing) => {
   const [instructor, setInstructor] = useState([]);
+  const [isSubmitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     axiosInstance.get("/manage/users").then((res) => {
@@ -44,14 +46,47 @@ const CourseForms = () => {
   }, []);
 
   const [isLoading, setIsLoading] = useState(false);
+
+  //   desc
+  // :
+  // "daasf"
+  // image
+  // :
+  // {file: File, fileList: Array(1)}
+  // instructor
+  // :
+  // ['640f6f57dca30381a36f55aa']
+  // price
+  // :
+  // "34"
+  // title
+  // :
+  // "Same"
   const onFinish = (item) => {
+    setSubmitting(true);
     console.log(item);
+    // const courseData = {
+
+    // }
     const formData = new FormData();
     formData.append("image", item?.image?.fileList[0]?.originFileObj);
     formData.append("title", item.title);
     formData.append("desc", item.desc);
     formData.append("price", item.price);
     formData.append("instructor", item.instructor);
+
+    axiosInstance
+      .post("/courses", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((res) => {
+        setSubmitting(false);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        setSubmitting(false);
+        console.log(err);
+      });
   };
 
   return (
@@ -119,7 +154,7 @@ const CourseForms = () => {
           ]}
         >
           <Input
-            placeholder="Type a Course Title"
+            placeholder="Type a Course Price"
             allowClear
             className="form-item"
             name="course_price"
@@ -141,10 +176,23 @@ const CourseForms = () => {
             }}
             // defaultValue={"Samson"}
             mode={"multiple"}
-            options={instructor}
+            // options={instructor}
             placeholder={"Enter a Course Instructor Name"}
             optionLabelProp="label"
-          ></Select>
+          >
+            {instructor.map((inst) => {
+              return (
+                <Option value={inst._id} label={inst.firstName}>
+                  <Space>
+                    <span role="img" aria-label="China">
+                      {inst.firstName}
+                    </span>
+                    {inst.lastName}
+                  </Space>
+                </Option>
+              );
+            })}
+          </Select>
           {/* <CustomSelect
             defaultValue={"Samson"}
             optionData={data}
@@ -153,7 +201,11 @@ const CourseForms = () => {
           /> */}
         </Form.Item>
         <Form.Item>
-          <button className={styles.btn}>Update</button>
+          {/* <button className={styles.btn}>Update</button> */}
+          <PrimaryBtn
+            message={isEditing ? "Update" : "Create"}
+            isSubmitting={isSubmitting}
+          />
         </Form.Item>
       </Form>
     </div>
