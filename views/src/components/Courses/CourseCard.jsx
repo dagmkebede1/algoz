@@ -3,6 +3,7 @@ import axios from "axios";
 import styles from "./course_card.module.css";
 import { axiosInstance } from "../utility/axios";
 import { AudioOutlined, RightOutlined, LeftOutlined } from "@ant-design/icons";
+import { apiBase } from "../utility/api";
 
 const CardComponent = () => {
   const [items, setItems] = useState([]);
@@ -26,7 +27,10 @@ const CardComponent = () => {
 
   const renderItems = currentItems.map((item) => (
     <div className={styles.card} key={item.id}>
-      <img src={item.image} alt={item.title} />
+      <img
+        src={`${apiBase.url}/public/img/course/${item.image}`}
+        alt={item.title}
+      />
       <h2>{item.title}</h2>
       <p>{item.desc}</p>
     </div>

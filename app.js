@@ -15,6 +15,7 @@ const questionRouter = require("./route/questionRouter");
 
 // const manageRouter = require("./route/manageRouter");
 // const getRouter = require("./route/getRouter");
+
 const answerRouter = require("./route/answerRouter");
 const path = require("path");
 const globalErrorHanddler = require("./middlewares/errorHanddler");
@@ -46,7 +47,8 @@ app.use(cookieParser());
 
 // app.set("view engine", "pug");
 // app.set("views", path.join(__dirname, "views"));
-// app.use(express.static(path.join(__dirname, "public")));
+
+app.use(express.static(path.join(__dirname, "public")));
 
 //Data Sanitization against NoSQL query injections
 app.use(mongoSanitize());

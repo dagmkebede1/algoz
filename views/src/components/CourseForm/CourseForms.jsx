@@ -5,9 +5,10 @@ import { Input, Select, Form, Space } from "antd";
 import { useState } from "react";
 import CustomInput from "../UI/Input/CustomInput";
 import CustomUpload from "../UI/Upload/CustomUpload";
-import CustomSelect from "../UI/Select/CustomSelect";
+import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../utility/axios";
 import PrimaryBtn from "../UI/PrimaryBtn/PrimaryBtn";
+import Swal from "sweetalert2";
 
 const data = [
   {
@@ -33,10 +34,12 @@ const { Option } = Select;
 const CourseForms = (isEditing) => {
   const [instructor, setInstructor] = useState([]);
   const [isSubmitting, setSubmitting] = useState(false);
+  // const [isError, setError] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     axiosInstance.get("/manage/users").then((res) => {
-      // console.log(res.data.allUser);
       let filteredInst = res.data.allUser.filter(
         (user) => user.role == "instructor"
       );
@@ -47,27 +50,10 @@ const CourseForms = (isEditing) => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  //   desc
-  // :
-  // "daasf"
-  // image
-  // :
-  // {file: File, fileList: Array(1)}
-  // instructor
-  // :
-  // ['640f6f57dca30381a36f55aa']
-  // price
-  // :
-  // "34"
-  // title
-  // :
-  // "Same"
   const onFinish = (item) => {
     setSubmitting(true);
     console.log(item);
-    // const courseData = {
 
-    // }
     const formData = new FormData();
     formData.append("image", item?.image?.fileList[0]?.originFileObj);
     formData.append("title", item.title);
@@ -81,11 +67,15 @@ const CourseForms = (isEditing) => {
       })
       .then((res) => {
         setSubmitting(false);
-        console.log(res.data);
+        navigate("/dashboard/courses");
       })
       .catch((err) => {
         setSubmitting(false);
-        console.log(err);
+
+        Swal.fire({
+          title: "Oops !",
+          text: err?.response?.data?.message,
+        });
       });
   };
 
