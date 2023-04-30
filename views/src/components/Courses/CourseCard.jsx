@@ -8,7 +8,7 @@ import { apiBase } from "../utility/api";
 const CardComponent = () => {
   const [items, setItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [itemsPerPage, setItemsPerPage] = useState(6);
 
   useEffect(() => {
     const fetchData = async () => {
