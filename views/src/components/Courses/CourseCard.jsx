@@ -12,24 +12,46 @@ import {
 import { apiBase } from "../utility/api";
 import { Button } from "antd";
 import { NavLink } from "react-router-dom";
+import Swal from "sweetalert2";
 
-const CardComponent = () => {
-  const [items, setItems] = useState([]);
+const CardComponent = ({ courses, setIsEditing, setCourseIndex }) => {
+  // const [items, setItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await axiosInstance.get("/courses");
-      setItems(result.data.data.allCourse);
-      console.log(result.data.data.allCourse);
-    };
-    fetchData();
-  }, []);
-
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = courses.slice(indexOfFirstItem, indexOfLastItem);
+
+  const editModeHandler = (value) => {
+    setCourseIndex(value);
+    setIsEditing(true);
+  };
+
+  const deleteHandler = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosInstance
+          .delete(`/courses/${id}`)
+          .then(() => {
+            setIsEditing(true);
+            setIsEditing(false);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+      }
+    });
+  };
 
   const renderItems = currentItems.map((item) => (
     <div className={styles.card} key={item._id}>
@@ -56,12 +78,12 @@ const CardComponent = () => {
         </div>
       </div>
       <div className={styles.course_action_btn}>
-        <Button>
-          <NavLink to={`/dashboard/courses/${item.title}`}>
-            <EditOutlined /> Edit
-          </NavLink>
+        <Button onClick={() => editModeHandler(item._id)}>
+          {/* <NavLink to={`/dashboard/courses/${item.title}`}> */}
+          <EditOutlined /> Edit
+          {/* </NavLink> */}
         </Button>
-        <Button>
+        <Button danger={true} onClick={() => deleteHandler(item._id)}>
           <DeleteOutlined />
           delete
         </Button>
@@ -70,7 +92,7 @@ const CardComponent = () => {
   ));
 
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(items.length / itemsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(courses.length / itemsPerPage); i++) {
     pageNumbers.push(i);
   }
 

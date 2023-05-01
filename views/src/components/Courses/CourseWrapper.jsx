@@ -5,57 +5,104 @@ const { Search } = Input;
 import { AudioOutlined } from "@ant-design/icons";
 import CourseCard from "./CourseCard";
 import { useNavigate } from "react-router-dom";
+import { axiosInstance } from "../utility/axios";
+import CourseForms from "../CourseForm/CourseForms";
 
 const CourseWrapper = () => {
-  const [query, setQuery] = useState({});
+  const [query, setQuery] = useState({ title: "" });
+  const [courses, setCourses] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [courseIndex, setCourseIndex] = useState(0);
+  const [singleCourse, setSingleCourse] = useState({});
+
   const navigate = useNavigate();
 
-  const onSearch = () => {};
-  const handleChange = () => {};
+  const onSearch = (q) => {
+    console.log(q.nativeEvent.target.defaultValue);
+    let titleQuery = q.nativeEvent.target.defaultValue;
+    setQuery((prev) => {
+      return { ...prev, title: titleQuery };
+    });
+  };
+
+  const handleChange = (q) => {
+    console.log(q);
+  };
+
   const createNewCourseHandler = () => {
     navigate("/dashboard/courses/new");
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axiosInstance.get(`/courses?title=${query.title}`);
+      setCourses(result.data.data.allCourse);
+      // console.log(result.data.data.allCourse);
+    };
+    fetchData();
+    console.log("useEffect runing...");
+    let foundCourse = courses.find((item) => item._id == courseIndex);
+    setSingleCourse(foundCourse);
+  }, [isEditing, query]);
+
   return (
     <>
-      <section className={styles.filter}>
-        <div>
-          <Button onClick={createNewCourseHandler}> Create New</Button>
-        </div>
-        <div>
-          <Search
-            placeholder="input search text"
-            allowClear
-            enterButton
-            onSearch={onSearch}
-            suffix={<AudioOutlined />}
+      {!isEditing && (
+        <section className={styles.filter}>
+          <div>
+            <Button onClick={createNewCourseHandler}> Create New</Button>
+          </div>
+          <div>
+            <Search
+              placeholder="input search text"
+              allowClear
+              enterButton
+              // onSearch={onSearch}
+              onChange={onSearch}
+              suffix={<AudioOutlined />}
+            />
+          </div>
+          <div>
+            {/* <select name="" id=""></select> */}
+            <Select
+              defaultValue="MERN Development"
+              placeholder="Catagories"
+              style={{
+                width: 120,
+              }}
+              onChange={handleChange}
+              options={[
+                {
+                  value: "jack",
+                  label: "Jack",
+                },
+                {
+                  value: "lucy",
+                  label: "Lucy",
+                },
+              ]}
+            />
+          </div>
+        </section>
+      )}
+      {!isEditing && (
+        <section className={styles.courseList}>
+          <CourseCard
+            courses={courses}
+            setIsEditing={setIsEditing}
+            setCourseIndex={setCourseIndex}
           />
-        </div>
-        <div>
-          {/* <select name="" id=""></select> */}
-          <Select
-            defaultValue="MERN Development"
-            placeholder="Catagories"
-            style={{
-              width: 120,
-            }}
-            onChange={handleChange}
-            options={[
-              {
-                value: "jack",
-                label: "Jack",
-              },
-              {
-                value: "lucy",
-                label: "Lucy",
-              },
-            ]}
+        </section>
+      )}
+      {isEditing && (
+        <section>
+          <CourseForms
+            singleCourse={singleCourse}
+            setIsEditing={setIsEditing}
+            isEditing={isEditing}
           />
-        </div>
-      </section>
-      <section className={styles.courseList}>
-        <CourseCard />
-      </section>
+        </section>
+      )}
     </>
   );
 };
