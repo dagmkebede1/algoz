@@ -46,19 +46,21 @@ const moduleSchema = new Schema(
       type: String,
       unique: true,
     },
-    videoResources: {
-      type: SchemaTypes.ObjectId,
-      ref: "Video",
-    },
+    videoResources: [
+      {
+        type: SchemaTypes.ObjectId,
+        ref: "Video",
+      },
+    ],
 
-    notes: {
+    notes: [{
       type: SchemaTypes.ObjectId,
       ref: "Note",
-    },
-    tasks: {
+    }],
+    tasks: [{
       type: SchemaTypes.ObjectId,
       ref: "Task",
-    },
+    }],
     durations: {
       type: String,
     },
