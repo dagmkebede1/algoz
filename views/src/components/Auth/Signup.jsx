@@ -22,6 +22,7 @@ import CustomUpload from "../UI/Upload/CustomUpload";
 import CustomInput from "../UI/Input/CustomInput";
 import CustomSelect from "../UI/Select/CustomSelect";
 import PrimaryBtn from "../UI/PrimaryBtn/PrimaryBtn";
+import SignUpNavbar from "../Nav/SignUpNav";
 
 // initializing the cookie
 const cookies = new Cookies();
@@ -77,15 +78,9 @@ const FormDisabledDemo = () => {
 
   return (
     <>
-      <Navbar />
+      <SignUpNavbar />
       <div className={styles.container}>
         <Form
-          // labelCol={{
-          //   span: 4,
-          // }}
-          // wrapperCol={{
-          //   span: 14,
-          // }}
           layout="horizontal"
           style={{
             width: "100%",

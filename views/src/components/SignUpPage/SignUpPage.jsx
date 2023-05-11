@@ -7,16 +7,16 @@ import React from "react";
 
 function SignUpPage() {
   return (
-    <div className="">
-      <div className={styles.container}>
-        <div className={styles.img_container}>
-          <img src={signUpImage} alt="" />
-        </div>
-        <div className={styles.form}>
-          <SignUp />
-        </div>
+    // <div className="">
+    <div className={styles.container}>
+      <div className={styles.img_container}>
+        <img src={signUpImage} alt="" />
+      </div>
+      <div className={styles.form}>
+        <SignUp />
       </div>
     </div>
+    // </div>
   );
 }
 
