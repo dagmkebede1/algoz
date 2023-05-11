@@ -1,20 +1,8 @@
-import React, { useState } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
 import "./NavBar.css";
-import { Outlet, NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import Logo from "./Logo/Logo";
-import DropdownMenu from "../UI/Dropdown/Dropdown";
+
 const SignUpNavbar = () => {
-  //   const [isOpen, setIsOpen] = useState(false);
-
-  //   const { isAuth } = useSelector((state) => state.auth);
-
-  //   console.log(isOpen, isAuth);
-  //   const toggleNav = () => {
-  //     setIsOpen(!isOpen);
-  //   };
-
   return (
     <>
       <header>
@@ -30,8 +18,6 @@ const SignUpNavbar = () => {
           >
             <NavLink href="/" className="navbar-logo" to={"/"}>
               <Logo />
-              {/* <img src={logo} alt="Logo" /> */}
-              {/* Algoz */}
             </NavLink>
           </div>
         </nav>
