@@ -3,7 +3,7 @@ import styles from "./primaryBtn.module.css";
 import { Button } from "antd";
 import { FaSpinner } from "react-icons/fa";
 
-const PrimaryBtn = ({ message, isSubmitting }) => {
+const PrimaryBtn = ({ message, size, isSubmitting }) => {
   return (
     <>
       <Button
@@ -11,6 +11,7 @@ const PrimaryBtn = ({ message, isSubmitting }) => {
         htmlType="submit"
         className={styles.btn}
         style={{ width: "100%" }}
+        size={size}
       >
         <FaSpinner
           className={

@@ -25,6 +25,7 @@ const CustomSelect = ({ mode, placeholder, optionData, defaultValue }) => {
         options={optionData}
         placeholder={placeholder}
         optionLabelProp="label"
+        size="large"
       ></Select>
     </>
   );

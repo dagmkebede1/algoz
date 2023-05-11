@@ -11,7 +11,7 @@ import SignUP from "./components/Auth/Signup";
 import { useSelector, useDispatch } from "react-redux";
 import { getUser } from "./components/Redux/Reducers/authSllice";
 import ProtectedRoutes from "./components/Protect/ProtectedRoutes";
-import CourseCard from "./components/CourseCard/CourseCard";
+// import CourseCard from "./components/CourseCard/CourseCard";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -22,6 +22,7 @@ import CourseForms from "./components/CourseForm/CourseForms";
 import Signup from "./components/Auth/Signup";
 import SignUpPage from "./components/SignUpPage/SignUpPage";
 import CourseWrapper from "./components/Courses/CourseWrapper";
+import MyInput from "./components/UI/MyInput/MyInput";
 
 function App() {
   const queryClient = new QueryClient();
@@ -33,7 +34,8 @@ function App() {
       path: "/",
       element: (
         <>
-          <Hero />
+          {/* <Hero /> */}
+          <MyInput />
         </>
       ),
     },
