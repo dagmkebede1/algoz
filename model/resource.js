@@ -2,8 +2,8 @@ const { Schema, SchemaTypes, model } = require("mongoose");
 
 const videoSchema = new Schema(
   {
-    module: { type: SchemaTypes.ObjectId, ref: "Modules" },
-    name: { type: String, required: true },
+    // module: { type: SchemaTypes.ObjectId, ref: "Modules" },
+    // name: { type: String, required: true },
     title: [{ type: String, required: true }],
     location: [
       {
@@ -16,7 +16,7 @@ const videoSchema = new Schema(
 );
 const noteSchema = new Schema(
   {
-    module: { type: SchemaTypes.ObjectId, ref: "Modules" },
+    // module: { type: SchemaTypes.ObjectId, ref: "Modules" },
     title: { type: String, required: true },
     location: {
       type: String,
@@ -27,7 +27,7 @@ const noteSchema = new Schema(
 );
 const taskSchema = new Schema(
   {
-    module: { type: SchemaTypes.ObjectId, ref: "Modules" },
+    // module: { type: SchemaTypes.ObjectId, ref: "Modules" },
     name: { type: String, required: true },
     title: [{ type: String, required: true }],
     Description: [
