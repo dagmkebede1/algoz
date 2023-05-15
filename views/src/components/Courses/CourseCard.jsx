@@ -2,18 +2,23 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./course_card.module.css";
 import { axiosInstance } from "../utility/axios";
+
 import {
   AudioOutlined,
   RightOutlined,
   LeftOutlined,
   DeleteOutlined,
   EditOutlined,
+  EllipsisOutlined,
+  SettingOutlined,
 } from "@ant-design/icons";
 import { apiBase } from "../utility/api";
 import { Button } from "antd";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
+import { Avatar, Card } from "antd";
 import Swal from "sweetalert2";
 
+const { Meta } = Card;
 const CardComponent = ({
   courses,
   setIsEditing,
@@ -22,7 +27,7 @@ const CardComponent = ({
 }) => {
   // const [items, setItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(6);
+  const [itemsPerPage, setItemsPerPage] = useState(3);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -60,41 +65,69 @@ const CardComponent = ({
   };
 
   const renderItems = currentItems.map((item) => (
-    <div className={styles.card} key={item._id}>
-      <img
-        src={`${apiBase.url}/public/img/course/${item.image}`}
-        alt={item.title}
-      />
-      <h2>{item.title}</h2>
-      <div className={styles.more_info}>
-        <div>
-          <p>{item.desc}</p>
-          <ul className={styles.instructor_lists}>
-            {item.instructor.map((inst) => {
-              return (
-                <li key={inst._id}>
-                  {inst.firstName} {inst.lastName}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-        <div className={styles.price}>
-          <p>{item.price} ETB</p>
-        </div>
-      </div>
-      <div className={styles.course_action_btn}>
-        <Button onClick={() => editModeHandler(item._id)}>
-          {/* <NavLink to={`/dashboard/courses/${item.title}`}> */}
-          <EditOutlined /> Edit
-          {/* </NavLink> */}
-        </Button>
-        <Button danger={true} onClick={() => deleteHandler(item._id)}>
-          <DeleteOutlined />
-          delete
-        </Button>
-      </div>
-    </div>
+    <Card
+      hoverable
+      style={{
+        width: 300,
+      }}
+      cover={
+        <img
+          alt={item.title}
+          src={`${apiBase.url}/public/img/course/${item.image}`}
+        />
+      }
+      actions={[
+        <Link to={"/"}>
+          <SettingOutlined key="setting" />
+        </Link>,
+        <Link to={"/dashboard/course/edit"}>
+          <EditOutlined key="edit" />
+        </Link>,
+
+        <DeleteOutlined
+          key="ellipsis"
+          onClick={() => deleteCourse(course._id)}
+        />,
+      ]}
+    >
+      <Meta title={item.title} description={item.desc} />
+      <p style={{ margin: "10px auto 0 auto" }}>{item.price} ETB</p>
+    </Card>
+    // <div className={styles.card} key={item._id}>
+    //   <img
+    //     src={`${apiBase.url}/public/img/course/${item.image}`}
+    //     alt={item.title}
+    //   />
+    //   <h2>{item.title}</h2>
+    //   <div className={styles.more_info}>
+    //     <div>
+    //       <p>{item.desc}</p>
+    //       <ul className={styles.instructor_lists}>
+    //         {item.instructor.map((inst) => {
+    //           return (
+    //             <li key={inst._id}>
+    //               {inst.firstName} {inst.lastName}
+    //             </li>
+    //           );
+    //         })}
+    //       </ul>
+    //     </div>
+    //     <div className={styles.price}>
+    //       <p>{item.price} ETB</p>
+    //     </div>
+    //   </div>
+    //   <div className={styles.course_action_btn}>
+    //     <Button onClick={() => editModeHandler(item._id)}>
+    //       {/* <NavLink to={`/dashboard/courses/${item.title}`}> */}
+    //       <EditOutlined /> Edit
+    //       {/* </NavLink> */}
+    //     </Button>
+    //     <Button danger={true} onClick={() => deleteHandler(item._id)}>
+    //       <DeleteOutlined />
+    //       delete
+    //     </Button>
+    //   </div>
+    // </div>
   ));
 
   const pageNumbers = [];
