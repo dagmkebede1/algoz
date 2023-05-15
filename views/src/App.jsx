@@ -34,8 +34,8 @@ function App() {
       path: "/",
       element: (
         <>
-          {/* <Hero /> */}
-          <MyInput />
+          <Hero />
+          {/* <MyInput /> */}
         </>
       ),
     },

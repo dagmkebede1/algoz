@@ -14,7 +14,12 @@ import { Button } from "antd";
 import { NavLink } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const CardComponent = ({ courses, setIsEditing, setCourseIndex }) => {
+const CardComponent = ({
+  courses,
+  setIsEditing,
+  setCourseIndex,
+  fetchData,
+}) => {
   // const [items, setItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(6);
@@ -23,11 +28,13 @@ const CardComponent = ({ courses, setIsEditing, setCourseIndex }) => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = courses.slice(indexOfFirstItem, indexOfLastItem);
 
+  // Edit/Update the Course Function
   const editModeHandler = (value) => {
     setCourseIndex(value);
     setIsEditing(true);
   };
 
+  // Delete the Course Function
   const deleteHandler = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -42,8 +49,7 @@ const CardComponent = ({ courses, setIsEditing, setCourseIndex }) => {
         axiosInstance
           .delete(`/courses/${id}`)
           .then(() => {
-            setIsEditing(true);
-            setIsEditing(false);
+            fetchData();
           })
           .catch((error) => {
             console.log(error);

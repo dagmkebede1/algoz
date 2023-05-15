@@ -1,33 +1,16 @@
 import React, { useEffect } from "react";
 import styles from "./CourseForm.module.css";
 import TextArea from "antd/es/input/TextArea";
-import { Input, Select, Form, Space } from "antd";
+// import { Input, Select, Form, Space } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
+import { Input, Select, Button, message, Upload, Form, Space } from "antd";
 import { useState } from "react";
-import CustomInput from "../UI/Input/CustomInput";
-import CustomUpload from "../UI/Upload/CustomUpload";
+// import CustomInput from "../UI/Input/CustomInput";
+// import CustomUpload from "../UI/Upload/CustomUpload";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../utility/axios";
 import PrimaryBtn from "../UI/PrimaryBtn/PrimaryBtn";
 import Swal from "sweetalert2";
-
-const data = [
-  {
-    value: "Samson",
-    label: "Samson",
-  },
-  {
-    value: "Rediet",
-    label: "Rediet",
-  },
-  {
-    value: "Alazar",
-    label: "Alazar",
-  },
-  {
-    value: "Amanuel",
-    label: "Amanuel",
-  },
-];
 
 const { Option } = Select;
 
@@ -49,8 +32,6 @@ const CourseForms = ({ setIsEditing, singleCourse, isEditing }) => {
     });
   }, []);
 
-  // const [isLoading, setIsLoading] = useState(false);
-
   const onFinish = (item) => {
     setSubmitting(true);
     console.log(item);
@@ -70,7 +51,6 @@ const CourseForms = ({ setIsEditing, singleCourse, isEditing }) => {
             .then((res) => {
               setSubmitting(false);
               setIsEditing(false);
-              // navigate("/dashboard/courses");
             })
             .catch((err) => {
               setSubmitting(false);
@@ -98,7 +78,14 @@ const CourseForms = ({ setIsEditing, singleCourse, isEditing }) => {
             });
     }
   };
-
+  // Props for Upload Form Item
+  const props = {
+    name: "file",
+    beforeUpload(file) {
+      console.log(file);
+      return false;
+    },
+  };
   return (
     <div className={styles.form_container}>
       <h2>{isEditing ? "Update a Course" : "Create A Course"} </h2>
@@ -113,13 +100,15 @@ const CourseForms = ({ setIsEditing, singleCourse, isEditing }) => {
               },
             ]}
           >
-            <CustomUpload
-              maxFile={1}
-              listType="picture-circle"
-              label="Select a Picture"
-              name="image"
-              accept=".png, jpeg, .gif, .jpg"
-            />
+            <Upload
+              maxCount={1}
+              listType={"picture-circle"}
+              accept={".png, jpeg, .gif, .jpg"}
+              name={"image"}
+              {...props}
+            >
+              <Button icon={<UploadOutlined />}>Select a Picture</Button>
+            </Upload>
           </Form.Item>
           <Form.Item
             name="title"
@@ -130,13 +119,13 @@ const CourseForms = ({ setIsEditing, singleCourse, isEditing }) => {
               },
             ]}
           >
-            <CustomInput
+            <Input
               placeholder={"Type a Course Title here"}
               allowClear={true}
+              // className={className}
+              defaultValue={singleCourse?.title ? singleCourse.title : ""}
+              // addonBefore={sideLabel}
               name={"courseTitle"}
-              // defaultValue={singleCourse?.title ? singleCourse.title : ""}
-              defaultValue={singleCourse.title}
-              // defaultValue={"MERN"}
               type={"text"}
             />
           </Form.Item>
@@ -232,13 +221,15 @@ const CourseForms = ({ setIsEditing, singleCourse, isEditing }) => {
               },
             ]}
           >
-            <CustomUpload
-              maxFile={1}
-              listType="picture-circle"
-              label="Select a Picture"
-              name="image"
-              accept=".png, jpeg, .gif, .jpg"
-            />
+            <Upload
+              maxCount={1}
+              listType={"picture-circle"}
+              accept={".png, jpeg, .gif, .jpg"}
+              name={"image"}
+              {...props}
+            >
+              <Button icon={<UploadOutlined />}>Select a Picture</Button>
+            </Upload>
           </Form.Item>
           <Form.Item
             name="title"
@@ -249,11 +240,17 @@ const CourseForms = ({ setIsEditing, singleCourse, isEditing }) => {
               },
             ]}
           >
-            <CustomInput
+            <Input
               placeholder={"Type a Course Title here"}
               allowClear={true}
+              // className={className}
+              // onChange={onChange}
+              // defaultValue={defaultValue}
+              // addonBefore={sideLabel}
               name={"courseTitle"}
               type={"text"}
+              // prefix={prefix}
+              // suffix={suffix}
             />
           </Form.Item>
           <Form.Item

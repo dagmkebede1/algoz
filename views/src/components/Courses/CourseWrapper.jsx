@@ -33,17 +33,21 @@ const CourseWrapper = () => {
     navigate("/dashboard/courses/new");
   };
 
+
+  // Fetching the course from the api
+  const fetchData = async () => {
+    const result = await axiosInstance.get(`/courses?title=${query.title}`);
+    setCourses(result.data.data.allCourse);
+    // console.log(result.data.data.allCourse);
+  };
+
+
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await axiosInstance.get(`/courses?title=${query.title}`);
-      setCourses(result.data.data.allCourse);
-      // console.log(result.data.data.allCourse);
-    };
     fetchData();
     console.log("useEffect runing...");
     let foundCourse = courses.find((item) => item._id == courseIndex);
     setSingleCourse(foundCourse);
-  }, [isEditing, query]);
+  }, [query]);
 
   return (
     <>
@@ -89,6 +93,7 @@ const CourseWrapper = () => {
         <section className={styles.courseList}>
           <CourseCard
             courses={courses}
+            fetchData={fetchData}
             setIsEditing={setIsEditing}
             setCourseIndex={setCourseIndex}
           />
@@ -97,6 +102,7 @@ const CourseWrapper = () => {
       {isEditing && (
         <section>
           <CourseForms
+            fetchData={fetchData}
             singleCourse={singleCourse}
             setIsEditing={setIsEditing}
             isEditing={isEditing}
