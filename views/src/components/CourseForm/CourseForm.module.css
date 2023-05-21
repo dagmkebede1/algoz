@@ -1,70 +1,59 @@
-/* ECF2FF */
-.form {
-  /* display: flex; */
-}
-.form_container h2 {
-  color: #7d7ecb;
-}
-.form_container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* gap: 20px; */
-  justify-content: center;
-  /* overflow-y: scroll; */
-}
-.form_container form {
-  /* text-align: center; */
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 100%;
-  max-width: 500px;
-  margin-top: 5px;
-  padding: 20px 30px;
-  background-color: #eef2ff;
-  border: 1px solid #eef1ff;
+.form__container {
+  background-color: rgb(240, 245, 252);
   border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: 0 auto;
+}
+.form__container form {
+  display: flex;
+  flex-direction: column;
+  /* gap: 20px; */
+  padding: 30px;
 }
 
-.form_container form input {
-  padding: 4px 10px !important;
-  width: 100%;
-}
-.form_container form label {
-  margin-bottom: 5px;
-}
-.form_container form input[type="file"] {
-  margin: 0 auto !important;
-}
-
-.btn {
+.form__container form input,
+.form__container form textarea,
+.form__container form select {
   border: none;
-  padding: 7px 10px;
-  color: white;
-  background-color: #9c9efe;
-  font-weight: bold;
+  border: 2px solid rgb(199, 206, 249);
   border-radius: 5px;
-  transition: all 0.3s ease;
-  width: 100%;
+  /* margin-bottom: 20px; */
+  padding: 5px 10px;
+  font-size: 20px;
+  transition: all 0.4s ease-in-out;
+  font-size: 16px;
 }
-.btn:hover {
-  background-color: #7d7ecb;
-  color: white;
+.form__container form input:hover,
+.form__container form textarea:hover,
+.form__container form select:hover {
+  border: 2px solid rgb(105, 124, 248);
 }
-.form_container form select {
-  padding: 10px 10px;
-  display: block;
-  width: 100%;
-  text-align: center;
+.form__container form input:focus,
+.form__container form textarea:focus,
+.form__container form select:focus {
+  outline: none;
+  border: 2px solid rgb(105, 124, 247);
+}
+.form__container form label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  /* justify-content: center; */
+  margin-top: 10px;
+  padding-bottom: 3px;
+  font-weight: 600;
+  color: rgb(105, 104, 104);
+}
+.form__error {
+  color: red;
+}
+.error__input {
   border: none;
-  border: 1px solid #ecf2ff;
-  border-radius: 3px;
+  outline: none;
+  border: 2px solid red !important;
 }
-.form_container form select:hover,
-.form_container form select:focus {
-  border: 1px solid #9c9efe;
-}
-.form_container form select option {
-  padding: 10px 10px;
+
+.form__container form button {
+  margin-top: 20px;
 }

@@ -18,7 +18,7 @@ const PrimaryBtn = ({ message, size, isSubmitting }) => {
             isSubmitting ? styles.loading_icon_load : styles.loading_icon
           }
         />
-        {message}
+        {isSubmitting ? `${message} ...` : message}
       </Button>
     </>
   );
