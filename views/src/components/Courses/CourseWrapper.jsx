@@ -11,6 +11,7 @@ import CourseForms from "../CourseForm/CourseForms";
 const CourseWrapper = () => {
   const [query, setQuery] = useState({ title: "" });
   const [courses, setCourses] = useState([]);
+  const [newCourse, setNewCourse] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [courseIndex, setCourseIndex] = useState(0);
   const [singleCourse, setSingleCourse] = useState({});
@@ -30,7 +31,8 @@ const CourseWrapper = () => {
   };
 
   const createNewCourseHandler = () => {
-    navigate("/dashboard/courses/new");
+    setNewCourse(true)
+    // navigate("/dashboard/courses/new");
   };
 
 
@@ -51,7 +53,7 @@ const CourseWrapper = () => {
 
   return (
     <>
-      {!isEditing && (
+      {(!isEditing && !newCourse) && (
         <section className={styles.filter}>
           <div>
             <Button onClick={createNewCourseHandler}> Create New</Button>
@@ -89,7 +91,7 @@ const CourseWrapper = () => {
           </div>
         </section>
       )}
-      {!isEditing && (
+      {(!isEditing && !newCourse) && (
         <section className={styles.courseList}>
           <CourseCard
             courses={courses}
@@ -99,13 +101,24 @@ const CourseWrapper = () => {
           />
         </section>
       )}
-      {isEditing && (
+      {(newCourse && !isEditing) &&  <CourseForms
+            fetchData={fetchData}
+            // singleCourse={singleCourse}
+            setIsEditing={setIsEditing}
+            setNewCourse={setNewCourse}
+            isEditing={isEditing}
+           
+          />}
+      {(isEditing && !newCourse) && (
         <section>
           <CourseForms
             fetchData={fetchData}
-            singleCourse={singleCourse}
+            // singleCourse={singleCourse}
             setIsEditing={setIsEditing}
             isEditing={isEditing}
+            courses={courses}
+            courseIndex={courseIndex}
+            currentCourse={courses.find((course)=>course._id === courseIndex)}
           />
         </section>
       )}

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./course_card.module.css";
 import { axiosInstance } from "../utility/axios";
+import {useSelector} from "react-redux"
+import {getUser} from "../Redux/Reducers/authSllice"
 
 import {
   AudioOutlined,
@@ -38,6 +40,8 @@ const CardComponent = ({
     setCourseIndex(value);
     setIsEditing(true);
   };
+// getting the state from the redux
+const {user} = useSelector((state)=>state.auth)
 
   // Delete the Course Function
   const deleteHandler = (id) => {
@@ -76,19 +80,36 @@ const CardComponent = ({
           src={`${apiBase.url}/public/img/course/${item.image}`}
         />
       }
-      actions={[
+      actions={
+        user.role === "admin" && [
         <Link to={"/"}>
           <SettingOutlined key="setting" />
         </Link>,
-        <Link to={"/dashboard/course/edit"}>
+        <Button onClick={()=>editModeHandler(item._id)}>
           <EditOutlined key="edit" />
-        </Link>,
-
+        </Button>,
+        
         <DeleteOutlined
           key="ellipsis"
-          onClick={() => deleteCourse(course._id)}
+          onClick={() => deleteHandler(item._id)}
         />,
-      ]}
+       
+      ] || [
+        <Link to={"/"}>
+          <SettingOutlined key="setting" />
+        </Link>
+        // <Button onClick={()=>editModeHandler(item._id)}>
+        //   <EditOutlined key="edit" />
+        // </Button>,
+        
+        // <DeleteOutlined
+        //   key="ellipsis"
+        //   onClick={() => deleteHandler(item._id)}
+        // />,
+       
+      ]
+    
+      }
     >
       <Meta title={item.title} description={item.desc} />
       <p style={{ margin: "10px auto 0 auto" }}>{item.price} ETB</p>

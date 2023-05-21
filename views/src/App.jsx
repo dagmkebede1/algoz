@@ -8,6 +8,7 @@ import SignPage from "./components/SignUpPage/SignUpPage";
 import Navbar from "./components/Nav/Navbar";
 import Hero from "./components/Hero/Hero";
 import SignUP from "./components/Auth/Signup";
+import CourseView from "../src/components/CourseView/CourseView"
 import { useSelector, useDispatch } from "react-redux";
 import { getUser } from "./components/Redux/Reducers/authSllice";
 import ProtectedRoutes from "./components/Protect/ProtectedRoutes";
@@ -68,8 +69,8 @@ function App() {
           element: <CourseWrapper />,
         },
         {
-          path: "courses/new",
-          element: <CourseForms />,
+          path: "courses/:title",
+          element: <CourseView />,
         },
         // {
         //   path: "courses/:courseId",

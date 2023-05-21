@@ -36,6 +36,7 @@
   border: 2px solid rgb(105, 124, 247);
 }
 .form__container form label {
+  cursor: pointer;
   display: flex;
   align-items: center;
   gap: 5px;
