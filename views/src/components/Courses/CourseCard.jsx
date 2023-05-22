@@ -2,16 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./course_card.module.css";
 import { axiosInstance } from "../utility/axios";
-import {useSelector} from "react-redux"
-import {getUser} from "../Redux/Reducers/authSllice"
+import { useSelector } from "react-redux";
+import { getUser } from "../Redux/Reducers/authSllice";
 
 import {
-  AudioOutlined,
   RightOutlined,
   LeftOutlined,
   DeleteOutlined,
   EditOutlined,
-  EllipsisOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
 import { apiBase } from "../utility/api";
@@ -26,6 +24,8 @@ const CardComponent = ({
   setIsEditing,
   setCourseIndex,
   fetchData,
+  setCourseView,
+  setSelectedID,
 }) => {
   // const [items, setItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,8 +40,8 @@ const CardComponent = ({
     setCourseIndex(value);
     setIsEditing(true);
   };
-// getting the state from the redux
-const {user} = useSelector((state)=>state.auth)
+  // getting the state from the redux
+  const { user } = useSelector((state) => state.auth);
 
   // Delete the Course Function
   const deleteHandler = (id) => {
@@ -68,6 +68,12 @@ const {user} = useSelector((state)=>state.auth)
     });
   };
 
+  const openCourse = (id) => {
+    setCourseView(true);
+    setIsEditing(false);
+    setSelectedID(id);
+  };
+
   const renderItems = currentItems.map((item) => (
     <Card
       hoverable
@@ -77,78 +83,30 @@ const {user} = useSelector((state)=>state.auth)
       cover={
         <img
           alt={item.title}
+          style={{
+            maxHeight: "200px",
+            objectFit: "cover",
+          }}
           src={`${apiBase.url}/public/img/course/${item.image}`}
         />
       }
       actions={
-        user.role === "admin" && [
-        <Link to={"/"}>
-          <SettingOutlined key="setting" />
-        </Link>,
-        <Button onClick={()=>editModeHandler(item._id)}>
-          <EditOutlined key="edit" />
-        </Button>,
-        
-        <DeleteOutlined
-          key="ellipsis"
-          onClick={() => deleteHandler(item._id)}
-        />,
-       
-      ] || [
-        <Link to={"/"}>
-          <SettingOutlined key="setting" />
-        </Link>
-        // <Button onClick={()=>editModeHandler(item._id)}>
-        //   <EditOutlined key="edit" />
-        // </Button>,
-        
-        // <DeleteOutlined
-        //   key="ellipsis"
-        //   onClick={() => deleteHandler(item._id)}
-        // />,
-       
-      ]
-    
+        (user.role === "admin" && [
+          <Button onClick={() => openCourse(item._id)}>More</Button>,
+          <Button onClick={() => editModeHandler(item._id)}>
+            <EditOutlined key="edit" />
+          </Button>,
+
+          <DeleteOutlined
+            key="ellipsis"
+            onClick={() => deleteHandler(item._id)}
+          />,
+        ]) || [<Button onClick={() => openCourse(item._id)}>More</Button>]
       }
     >
-      <Meta title={item.title} description={item.desc} />
+      <Meta title={item.title} description={item.desc.slice(0, 100) + "..."} />
       <p style={{ margin: "10px auto 0 auto" }}>{item.price} ETB</p>
     </Card>
-    // <div className={styles.card} key={item._id}>
-    //   <img
-    //     src={`${apiBase.url}/public/img/course/${item.image}`}
-    //     alt={item.title}
-    //   />
-    //   <h2>{item.title}</h2>
-    //   <div className={styles.more_info}>
-    //     <div>
-    //       <p>{item.desc}</p>
-    //       <ul className={styles.instructor_lists}>
-    //         {item.instructor.map((inst) => {
-    //           return (
-    //             <li key={inst._id}>
-    //               {inst.firstName} {inst.lastName}
-    //             </li>
-    //           );
-    //         })}
-    //       </ul>
-    //     </div>
-    //     <div className={styles.price}>
-    //       <p>{item.price} ETB</p>
-    //     </div>
-    //   </div>
-    //   <div className={styles.course_action_btn}>
-    //     <Button onClick={() => editModeHandler(item._id)}>
-    //       {/* <NavLink to={`/dashboard/courses/${item.title}`}> */}
-    //       <EditOutlined /> Edit
-    //       {/* </NavLink> */}
-    //     </Button>
-    //     <Button danger={true} onClick={() => deleteHandler(item._id)}>
-    //       <DeleteOutlined />
-    //       delete
-    //     </Button>
-    //   </div>
-    // </div>
   ));
 
   const pageNumbers = [];

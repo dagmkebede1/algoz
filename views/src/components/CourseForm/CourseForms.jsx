@@ -15,13 +15,20 @@ import Swal from "sweetalert2";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-const CourseForm = ({currentCourse, courses,courseIndex, setNewCourse, isEditing, setIsEditing, fetchData}) => {
+const CourseForm = ({
+  currentCourse,
+  courses,
+  courseIndex,
+  setNewCourse,
+  isEditing,
+  setIsEditing,
+  fetchData,
+}) => {
   const [instructor, setInstructor] = useState([]);
   const [isSubmitting, setSubmitting] = useState(false);
-  const [image, setImage] = useState({})
+  const [image, setImage] = useState({});
 
   useEffect(() => {
-
     axiosInstance.get("/manage/users").then((res) => {
       let filteredInst = res.data.allUser.filter(
         (user) => user.role == "instructor"
@@ -32,13 +39,16 @@ const CourseForm = ({currentCourse, courses,courseIndex, setNewCourse, isEditing
   }, []);
 
   const formik = useFormik({
-
     initialValues: {
-      image: currentCourse?.image? currentCourse.image: "",
-      title: currentCourse?.title? currentCourse.title: "",
-      desc:currentCourse?.desc? currentCourse.desc: "",
-      price:currentCourse?.price? currentCourse.price: "",
-      instructor: !isEditing?( currentCourse?.instructor?currentCourse.instructor: "") :instructor,
+      image: currentCourse?.image ? currentCourse.image : "",
+      title: currentCourse?.title ? currentCourse.title : "",
+      desc: currentCourse?.desc ? currentCourse.desc : "",
+      price: currentCourse?.price ? currentCourse.price : "",
+      instructor: !isEditing
+        ? currentCourse?.instructor
+          ? currentCourse.instructor
+          : ""
+        : instructor,
     },
     validationSchema: Yup.object({
       title: Yup.string()
@@ -52,65 +62,64 @@ const CourseForm = ({currentCourse, courses,courseIndex, setNewCourse, isEditing
       // .required("Please Enter a Course instructors"),
     }),
     onSubmit: (values) => {
+      setSubmitting(true);
+      const formData = new FormData();
+      formData.append("image", image);
+      formData.append("title", values.title);
+      formData.append("desc", values.desc);
+      formData.append("price", values.price);
+      formData.append("instructor", values.instructor);
+      {
+        isEditing
+          ? axiosInstance
+              .patch(`/courses/${currentCourse._id}`, formData, {
+                headers: { "Content-Type": "multipart/form-data" },
+              })
+              .then((res) => {
+                setSubmitting(false);
+                fetchData();
 
-    setSubmitting(true);
-    const formData = new FormData();
-    formData.append("image", image);
-    formData.append("title", values.title);
-    formData.append("desc", values.desc);
-    formData.append("price", values.price);
-    formData.append("instructor", values.instructor);
-    {
-      isEditing
-        ? axiosInstance
-            .patch(`/courses/${currentCourse._id}`, formData, {
-              headers: { "Content-Type": "multipart/form-data" },
-            })
-            .then((res) => {
-              setSubmitting(false);
-              fetchData()
-              setIsEditing(false);
-            })
-            .catch((err) => {
-              setSubmitting(false);
-              Swal.fire({
-                title: "Oops !",
-                text: err?.response?.data?.message,
-              });
-            })
-        : axiosInstance
-            .post(`/courses`, formData, {
-              headers: { "Content-Type": "multipart/form-data" },
-            })
-            .then((res) => {
-              setSubmitting(false);
-              fetchData()
-              setNewCourse(false)
-              // navigate("/dashboard/courses");
-            })
-            .catch((err) => {
-              setSubmitting(false);
+                setIsEditing(false);
+              })
+              .catch((err) => {
+                setSubmitting(false);
+                Swal.fire({
+                  title: "Oops !",
+                  text: err?.response?.data?.message,
+                });
+              })
+          : axiosInstance
+              .post(`/courses`, formData, {
+                headers: { "Content-Type": "multipart/form-data" },
+              })
+              .then((res) => {
+                setSubmitting(false);
+                fetchData();
+                setNewCourse(false);
+                // navigate("/dashboard/courses");
+              })
+              .catch((err) => {
+                setSubmitting(false);
 
-              Swal.fire({
-                title: "Oops !",
-                text: err?.response?.data?.message,
+                Swal.fire({
+                  title: "Oops !",
+                  text: err?.response?.data?.message,
+                });
               });
-            });
-    }
-// 
+      }
+      //
       // alert(JSON.stringify(values, null, 2));
     },
   });
 
-  const imageHandler = (e)=>{
-    setImage(e.target.files[0])
-    console.log(e.target.files[0])
-  }
-  const BackHandler = ()=>{
-    setIsEditing(false)
-    setNewCourse(false)
-  }
-
+  const imageHandler = (e) => {
+    setImage(e.target.files[0]);
+    console.log(e.target.files[0]);
+  };
+  const BackHandler = () => {
+    setIsEditing(false);
+    setNewCourse(false);
+  };
 
   return (
     <section className={styles.form__container}>
@@ -134,7 +143,6 @@ const CourseForm = ({currentCourse, courses,courseIndex, setNewCourse, isEditing
           id="image"
           name="image"
           type="file"
-        
           onChange={imageHandler}
           // {...formik.getFieldProps("image")}
         />
@@ -143,7 +151,7 @@ const CourseForm = ({currentCourse, courses,courseIndex, setNewCourse, isEditing
           id="title"
           type="text"
           name="title"
-            autoComplete="true"
+          autoComplete="true"
           className={formik.errors.title ? styles.error__input : ""}
           {...formik.getFieldProps("title")}
         />
@@ -158,7 +166,7 @@ const CourseForm = ({currentCourse, courses,courseIndex, setNewCourse, isEditing
           type="text"
           name="desc"
           {...formik.getFieldProps("desc")}
-           className={formik.errors.title ? styles.error__input : ""}
+          className={formik.errors.title ? styles.error__input : ""}
         />
         {formik.touched.desc && formik.errors.desc ? (
           <div className={styles.form__error}>{formik.errors.desc}</div>
@@ -170,7 +178,7 @@ const CourseForm = ({currentCourse, courses,courseIndex, setNewCourse, isEditing
           type="number"
           name="price"
           {...formik.getFieldProps("price")}
-           className={formik.errors.title ? styles.error__input : ""}
+          className={formik.errors.title ? styles.error__input : ""}
         />
         {formik.touched.price && formik.errors.price ? (
           <div className={styles.form__error}>{formik.errors.price}</div>
@@ -183,16 +191,23 @@ const CourseForm = ({currentCourse, courses,courseIndex, setNewCourse, isEditing
           multiple={true}
           className={formik.errors.title ? styles.error__input : ""}
         >
-          {instructor.map((inst)=>{
-            return   <option key={inst._id} value={inst._id}>{inst.firstName}</option>
+          {instructor.map((inst) => {
+            return (
+              <option key={inst._id} value={inst._id}>
+                {inst.firstName}
+              </option>
+            );
           })}
-
         </select>
         {formik.touched.instructor && formik.errors.instructor ? (
           <div className={styles.form__error}>{formik.errors.instructor}</div>
         ) : null}
 
-        <PrimaryBtn message={isEditing? "Update": "Create"} isSubmitting={isSubmitting} size={"medium"}>
+        <PrimaryBtn
+          message={isEditing ? "Update" : "Create"}
+          isSubmitting={isSubmitting}
+          size={"medium"}
+        >
           {}
         </PrimaryBtn>
         {/* <button type="submit">Submit</button> */}

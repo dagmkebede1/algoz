@@ -7,14 +7,17 @@ import CourseCard from "./CourseCard";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../utility/axios";
 import CourseForms from "../CourseForm/CourseForms";
+import CourseView from "../CourseView/CourseView";
 
 const CourseWrapper = () => {
   const [query, setQuery] = useState({ title: "" });
   const [courses, setCourses] = useState([]);
   const [newCourse, setNewCourse] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [courseView, setCourseView] = useState(false);
   const [courseIndex, setCourseIndex] = useState(0);
   const [singleCourse, setSingleCourse] = useState({});
+  const [selectedID, setSelectedID] = useState(null);
 
   const navigate = useNavigate();
 
@@ -31,10 +34,9 @@ const CourseWrapper = () => {
   };
 
   const createNewCourseHandler = () => {
-    setNewCourse(true)
+    setNewCourse(true);
     // navigate("/dashboard/courses/new");
   };
-
 
   // Fetching the course from the api
   const fetchData = async () => {
@@ -43,7 +45,6 @@ const CourseWrapper = () => {
     // console.log(result.data.data.allCourse);
   };
 
-
   useEffect(() => {
     fetchData();
     console.log("useEffect runing...");
@@ -51,9 +52,17 @@ const CourseWrapper = () => {
     setSingleCourse(foundCourse);
   }, [query]);
 
+  const backHandler = () => {
+    setNewCourse(false);
+    setCourseView(false);
+    setIsEditing(false);
+  };
+
+  let singleCourseView = courses.find((item) => item._id == selectedID);
+
   return (
     <>
-      {(!isEditing && !newCourse) && (
+      {!isEditing && !newCourse && !courseView && (
         <section className={styles.filter}>
           <div>
             <Button onClick={createNewCourseHandler}> Create New</Button>
@@ -63,13 +72,11 @@ const CourseWrapper = () => {
               placeholder="input search text"
               allowClear
               enterButton
-              // onSearch={onSearch}
               onChange={onSearch}
               suffix={<AudioOutlined />}
             />
           </div>
           <div>
-            {/* <select name="" id=""></select> */}
             <Select
               defaultValue="MERN Development"
               placeholder="Catagories"
@@ -91,35 +98,44 @@ const CourseWrapper = () => {
           </div>
         </section>
       )}
-      {(!isEditing && !newCourse) && (
+      {!isEditing && !newCourse && !courseView && (
         <section className={styles.courseList}>
           <CourseCard
+            setSelectedID={setSelectedID}
             courses={courses}
             fetchData={fetchData}
             setIsEditing={setIsEditing}
             setCourseIndex={setCourseIndex}
+            setCourseView={setCourseView}
           />
         </section>
       )}
-      {(newCourse && !isEditing) &&  <CourseForms
-            fetchData={fetchData}
-            // singleCourse={singleCourse}
-            setIsEditing={setIsEditing}
-            setNewCourse={setNewCourse}
-            isEditing={isEditing}
-           
-          />}
-      {(isEditing && !newCourse) && (
+      {newCourse && !isEditing && !courseView && (
+        <CourseForms
+          fetchData={fetchData}
+          backHandler={backHandler}
+          setIsEditing={setIsEditing}
+          setNewCourse={setNewCourse}
+          isEditing={isEditing}
+        />
+      )}
+      {isEditing && !newCourse && !courseView && (
         <section>
           <CourseForms
             fetchData={fetchData}
-            // singleCourse={singleCourse}
+            backHandler={backHandler}
             setIsEditing={setIsEditing}
             isEditing={isEditing}
             courses={courses}
             courseIndex={courseIndex}
-            currentCourse={courses.find((course)=>course._id === courseIndex)}
+            currentCourse={courses.find((course) => course._id === courseIndex)}
           />
+        </section>
+      )}
+      {!newCourse && !isEditing && courseView && (
+        <section>
+          <Button onClick={backHandler}>Back</Button>
+          <CourseView singleCourseView={singleCourseView} />
         </section>
       )}
     </>
