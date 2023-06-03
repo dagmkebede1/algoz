@@ -32,8 +32,6 @@ const CourseView = ({ singleCourseView }) => {
                     </li>
                   );
                 })}
-                {/* <li>Samson</li>
-                <li>Rediet</li> */}
               </ul>
             </div>
           </div>
