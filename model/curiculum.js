@@ -75,3 +75,5 @@ const moduleSchema = new Schema(
 // const batch = model("Batch", batchSchema);
 // const phase = model("Phase", phaseSchema);
 const module = model("Module", moduleSchema);
+
+module.exports = module;
