@@ -11,6 +11,7 @@ const {
   getSingleVideo,
   editVideo,
   deleteVideo,
+  deleteMultipleVideos,
   // Notes Controller
   uploadNotes,
   deleteMultipleNote,
@@ -18,9 +19,14 @@ const {
   getAllNotes,
   getSingleNote,
   editNotes,
-  deleteMultipleVideos,
+  //
+  addTask,
+  updateTask,
+  getSingleTask,
+  getAllTasks,
+  deleteTask,
+  deleteMultipleTask,
 } = require("../controller/resourceController");
-const { get } = require("mongoose");
 
 // Protection from unauthorized users
 Router.use(AuthController.protect);
@@ -49,11 +55,12 @@ Router.route("/Resource/notes/:id")
 
 // Tasks Routing route
 Router.route("/Resource/tasks")
-  .post(AuthController.restrictTo("admin"), videoHandler, uploadVideo)
-  .get(getAllVideos);
+  .post(AuthController.restrictTo("admin"), addTask)
+  .get(getAllTasks)
+  .delete(deleteMultipleTask);
 Router.route("/Resource/tasks/:id")
-  .get(getSingleVideo)
-  .patch(AuthController.restrictTo("admin"), editVideo)
-  .delete(AuthController.restrictTo("admin"), deleteVideo);
+  .get(getSingleTask)
+  .patch(AuthController.restrictTo("admin"), updateTask)
+  .delete(AuthController.restrictTo("admin"), deleteTask);
 
 module.exports = Router;

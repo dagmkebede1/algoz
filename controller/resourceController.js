@@ -355,7 +355,7 @@ const updateTask = CatchAsync(async (req, res, next) => {
 const getSingleTask = CatchAsync(async (req, res, next) => {
   const { id } = req.params;
 
-  const Task = await Notes.findOne({ _id: id });
+  const Task = await Tasks.findOne({ _id: id });
   console.log(Task);
 
   if (!Task) {
@@ -366,6 +366,45 @@ const getSingleTask = CatchAsync(async (req, res, next) => {
     res.status(200).json({
       status: "success",
       Task,
+    });
+  }
+});
+
+// deleteSingleTask controller functions
+const deleteTask = CatchAsync(async (req, res, next) => {
+  const { id } = req.params;
+
+  const deletedTask = await Tasks.findByIdAndDelete({ _id: id });
+
+  if (deletedTask) {
+    res.status(200).json({
+      status: "success",
+      deletedTask,
+      message: "Task deleted successfully",
+    });
+  } else {
+    res.status(200).json({
+      status: "success",
+      message: "No Note with that ID",
+    });
+  }
+});
+
+//deleteMultiple Tasks controller function
+const deleteMultipleTask = CatchAsync(async (req, res, next) => {
+  const { ids } = req.body;
+  // deleting them from the database
+  const result = await Tasks.deleteMany({ _id: { $in: ids } });
+
+  if (result.deletedCount) {
+    res.status(200).json({
+      status: "success",
+      message: "Tasks deleted successfully",
+    });
+  } else {
+    res.status(200).json({
+      status: "success",
+      message: "No Tasks with those ID's to delete",
     });
   }
 });
@@ -384,4 +423,11 @@ module.exports = {
   getSingleNote,
   deleteNote,
   deleteMultipleNote,
+  // Tasks Controller Exporting Functions
+  addTask,
+  getAllTasks,
+  getSingleTask,
+  updateTask,
+  deleteTask,
+  deleteMultipleTask,
 };
