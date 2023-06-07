@@ -1,22 +1,22 @@
 const multer = require("multer");
 const AppError = require("../utils/AppError");
 
-// storage Stratagies for PDF
+// storage Strategies for PDF
 const storageForPdf = multer.diskStorage({
   destination: function (req, file, cb) {
     if (file.mimetype === "application/pdf") {
-      cb(null, "./public/resources/pdf");
+      cb(null, "./public/resources/note");
     } else {
       cb({ error: "file type not supported" });
     }
   },
   filename: function (req, file, cb) {
     const ext = file.mimetype.split("/")[1];
-    cb(null, `course-pdf-${req.user.id}-${Date.now()}.${ext}`);
+    cb(null, `course-note-${req.user.id}-${Date.now()}.${ext}`);
   },
 });
 
-// Storage Stratagies for CV PDF
+// Storage Strategies for CV PDF
 const storageForCV = multer.diskStorage({
   destination: function (req, file, cb) {
     if (file.mimetype === "application/pdf") {
@@ -31,7 +31,7 @@ const storageForCV = multer.diskStorage({
   },
 });
 
-// Storage Stratagies for QA Image/ IMAGE
+// Storage Strategies for QA Image/ IMAGE
 const storageForQAImages = multer.diskStorage({
   destination: function (req, file, cb) {
     if (
@@ -50,13 +50,13 @@ const storageForQAImages = multer.diskStorage({
   },
 });
 
-// Storage Stratagies for Video
-const storageForVedio = multer.diskStorage({
+// Storage Strategies for Video
+const storageForVideo = multer.diskStorage({
   destination: function (req, file, cb) {
     if (
-      file.filename === "video/gif" ||
-      file.filename === "video/mp4" ||
-      file.filename === "video/wmv"
+      file.mimetype === "video/gif" ||
+      file.mimetype === "video/mp4" ||
+      file.mimetype === "video/wmv"
     ) {
       cb(null, "./public/resources/video");
     } else {
@@ -65,7 +65,7 @@ const storageForVedio = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     const ext = file.mimetype.split("/")[1];
-    cb(null, `Video-Resourse-${req.user.id}-${Date.now()}.${ext}`);
+    cb(null, `${file.originalname}-${req.user.id}-${Date.now()}.${ext}`);
   },
 });
 
@@ -78,14 +78,23 @@ const uploadQAImage = multer({
 });
 
 const uploadVideo = multer({
-  storage: storageForVedio,
+  storage: storageForVideo,
 });
 
 const uploadCV = multer({
   storage: storageForCV,
 });
 
-exports.QAImageHanddler = uploadQAImage.single("image");
-exports.PDFuploadHanddler = uploadPDF.fields([{ name: "pdf", maxCount: 5 }]);
-exports.uploadCVHanddler = uploadCV.single("cv");
-exports.videoHanddler = uploadVideo.fields([{ name: "video", maxCount: 5 }]);
+let QAImageHandler = uploadQAImage.single("image");
+let uploadCVHandler = uploadCV.single("cv");
+
+let noteUploadHandler = uploadPDF.fields([{ name: "note", maxCount: 5 }]);
+
+let videoHandler = uploadVideo.fields([{ name: "video", maxCount: 10 }]);
+
+module.exports = {
+  QAImageHandler,
+  uploadCVHandler,
+  noteUploadHandler,
+  videoHandler,
+};

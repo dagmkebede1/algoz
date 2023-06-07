@@ -2,46 +2,55 @@ const { Schema, SchemaTypes, model } = require("mongoose");
 
 const videoSchema = new Schema(
   {
-    // module: { type: SchemaTypes.ObjectId, ref: "Modules" },
-    // name: { type: String, required: true },
-    title: [{ type: String, required: true }],
-    location: [
-      {
-        type: String,
-        required: true,
-      },
-    ],
-  },
-  { timestamps: true }
-);
-const noteSchema = new Schema(
-  {
-    // module: { type: SchemaTypes.ObjectId, ref: "Modules" },
-    title: { type: String, required: true },
-    location: {
+    originalname: {
+      type: String,
+      required: true,
+    },
+    destination: {
+      type: String,
+      required: true,
+    },
+    filename: {
       type: String,
       required: true,
     },
   },
   { timestamps: true }
 );
-const taskSchema = new Schema(
+
+const noteSchema = new Schema(
   {
-    // module: { type: SchemaTypes.ObjectId, ref: "Modules" },
-    name: { type: String, required: true },
-    title: [{ type: String, required: true }],
-    Description: [
-      {
-        type: String,
-        required: true,
-      },
-    ],
+    originalname: {
+      type: String,
+      required: true,
+    },
+    destination: {
+      type: String,
+      required: true,
+    },
+    filename: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );
 
-const videos = model("Video", videoSchema);
-const notes = model("Notes", noteSchema);
-const tasks = model("Tasks", taskSchema);
+const taskSchema = new Schema(
+  {
+    // module: { type: SchemaTypes.ObjectId, ref: "Modules" },
+    title: { type: String, required: true },
+    activityList: [{ type: String, required: true }],
+    description: {
+      type: String,
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
 
-module.exports = { videos, notes, tasks };
+const Videos = model("Video", videoSchema);
+const Notes = model("Notes", noteSchema);
+const Tasks = model("Tasks", taskSchema);
+
+module.exports = { Videos, Notes, Tasks };
