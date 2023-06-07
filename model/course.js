@@ -25,12 +25,21 @@ const courseSchema = new mongoose.Schema({
       ref: "User",
     },
   ],
+  modules: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "Module",
+    },
+  ],
 });
 
 courseSchema.pre(/^find/, function (next) {
   this.populate({
     path: "instructor",
     select: "firstName lastName",
+  }).populate({
+    path: "modules",
+    select: "",
   });
   next();
 });
