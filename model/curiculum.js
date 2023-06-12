@@ -52,7 +52,6 @@ const moduleSchema = new Schema(
         ref: "Video",
       },
     ],
-
     notes: [
       {
         type: SchemaTypes.ObjectId,
@@ -65,6 +64,10 @@ const moduleSchema = new Schema(
         ref: "Task",
       },
     ],
+    createdBy: {
+      type: SchemaTypes.ObjectId,
+      ref: "User",
+    },
     durations: {
       type: String,
     },
@@ -74,6 +77,6 @@ const moduleSchema = new Schema(
 
 // const batch = model("Batch", batchSchema);
 // const phase = model("Phase", phaseSchema);
-const module = model("Module", moduleSchema);
+const modules = model("Module", moduleSchema);
 
-module.exports = module;
+module.exports = modules;

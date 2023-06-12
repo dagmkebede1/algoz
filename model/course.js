@@ -39,7 +39,7 @@ courseSchema.pre(/^find/, function (next) {
     select: "firstName lastName",
   }).populate({
     path: "modules",
-    select: "",
+    // select: "",
   });
   next();
 });

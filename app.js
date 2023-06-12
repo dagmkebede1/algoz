@@ -21,6 +21,7 @@ const answerRouter = require("./route/answerRouter");
 const resourceRouter = require("./route/resourceRouter");
 const globalErrorHanddler = require("./middlewares/errorHanddler");
 const notFound = require("./route/notFound");
+const moduleRouter = require("./route/moduleRouter");
 
 // Utility functions
 const CatchAsync = require("./utils/CatchAsync");
@@ -73,6 +74,7 @@ app.use(courseRouter);
 app.use(enrolRouter);
 app.use(userRouter);
 app.use(resourceRouter);
+app.use(moduleRouter);
 // 404
 app.use(notFound);
 // Error handling Middleware
