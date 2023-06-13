@@ -13,7 +13,12 @@ const createModule = CatchAsync(async (req, res, next) => {
 //getAllModules
 
 const getAllModules = CatchAsync(async (req, res, next) => {
-  const allModules = await Module.find();
+  const allModules = await Module.find()
+    .populate({
+      path: "videoResources",
+    })
+    .populate({ path: "tasks" })
+    .populate({ path: "notes" });
 
   res.status(200).json(allModules);
 });
@@ -23,7 +28,12 @@ const getAllModules = CatchAsync(async (req, res, next) => {
 const getSingleModule = CatchAsync(async (req, res, next) => {
   const { id } = req.params;
 
-  let SingleModule = await Module.findById({ _id: id });
+  let SingleModule = await Module.findById({ _id: id })
+    .populate({
+      path: "videoResources",
+    })
+    .populate({ path: "tasks" })
+    .populate({ path: "notes" });
 
   res.status(200).json(SingleModule);
 });

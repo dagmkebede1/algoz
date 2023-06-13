@@ -50,7 +50,7 @@ const taskSchema = new Schema(
 );
 
 const Videos = model("Video", videoSchema);
-const Notes = model("Notes", noteSchema);
-const Tasks = model("Tasks", taskSchema);
+const Notes = model("Note", noteSchema);
+const Tasks = model("Task", taskSchema);
 
 module.exports = { Videos, Notes, Tasks };

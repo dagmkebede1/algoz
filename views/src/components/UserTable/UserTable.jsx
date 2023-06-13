@@ -1,12 +1,13 @@
 import React, { useMemo, useState, useCallback } from "react";
 import MaterialReactTable from "material-react-table";
-import { Box, IconButton, Tooltip } from "@mui/material";
+import { Box, IconButton, MenuItem, Tooltip } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import { axiosInstance } from "../utility/axios.js";
 import { useUpdateUser } from "../hooks/UserHooks/useDataFetch.js";
 import { useDeleteUser } from "../hooks/UserHooks/useDelete.js";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { Delete, Edit } from "@mui/icons-material";
+import { Delete, Edit, ViewAgendaOutlined } from "@mui/icons-material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 const Example = () => {
   const [columnFilters, setColumnFilters] = useState([]);
@@ -17,7 +18,7 @@ const Example = () => {
     pageSize: 10,
   });
   const [validationErrors, setValidationErrors] = useState({});
-
+  let roleData = ["admin", "instructor", "student"];
   // for quering the Data
   const { data, isError, isFetching, isLoading, refetch } = useQuery({
     queryKey: [
@@ -152,10 +153,22 @@ const Example = () => {
       {
         accessorKey: "role",
         header: "Role",
-        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
-          ...getCommonEditTextFieldProps(cell),
-        }),
+        muiTableBodyCellEditTextFieldProps: {
+          select: true, //change to select for a dropdown
+          children: roleData.map((state) => (
+            <MenuItem key={state} value={state}>
+              {state}
+            </MenuItem>
+          )),
+        },
       },
+      // {
+      //   accessorKey: "role",
+      //   header: "Role",
+      //   muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+      //     ...getCommonEditTextFieldProps(cell),
+      //   }),
+      // },
       {
         accessorKey: "phone",
         header: "Phone Number",
@@ -171,7 +184,7 @@ const Example = () => {
     <MaterialReactTable
       columns={columns}
       data={data ?? []} //data is undefined on first render
-      initialState={{ showColumnFilters: true }}
+      // initialState={{ showColumnFilters: true }}
       manualFiltering
       manualPagination
       manualSorting
@@ -202,6 +215,11 @@ const Example = () => {
       onEditingRowSave={handleSaveRowEdits}
       renderRowActions={({ row, table }) => (
         <Box sx={{ display: "flex", gap: "1rem" }}>
+          <Tooltip arrow placement="left" title="View">
+            <IconButton onClick={() => table.setEditingRow(row)}>
+              <VisibilityIcon />
+            </IconButton>
+          </Tooltip>
           <Tooltip arrow placement="left" title="Edit">
             <IconButton onClick={() => table.setEditingRow(row)}>
               <Edit />
