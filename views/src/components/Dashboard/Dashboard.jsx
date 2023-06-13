@@ -16,6 +16,7 @@ import "./Dashboard.css";
 import MenuItem from "antd/es/menu/MenuItem";
 import { Outlet, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import Logo from "../Nav/Logo/Logo";
 
 const { Header, Sider, Content } = Layout;
 
@@ -32,6 +33,7 @@ const Dashboard = () => {
       <Sider
         trigger={null}
         collapsible
+        theme="light"
         collapsed={collapsed}
         style={{ position: "fixed", top: 0, height: "100vh" }}
       >
@@ -39,7 +41,7 @@ const Dashboard = () => {
           <h2>{collapsed ? "AI" : "Algoz"}</h2>
         </div>
         <Menu
-          theme="dark"
+          theme="light"
           mode="inline"
           // defaultSelectedKeys={["1"]}
           style={{ marginTop: "50px" }}
@@ -190,8 +192,13 @@ const Dashboard = () => {
           style={{
             padding: 0,
             background: colorBgContainer,
+            display: "flex",
+            justifyContent: "space-around",
+            maxWidth: "200px",
+            alignItems: "center",
           }}
         >
+          <Logo />
           {React.createElement(
             collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
             {
@@ -202,16 +209,17 @@ const Dashboard = () => {
         </Header>
         <Content
           style={{
-            margin: "24px 16px",
+            margin: "0 16px",
             padding: `24px 24px 24px ${collapsed ? "80px" : "230px"}`,
             minHeight: 280,
             // height: "100vh",
             background: colorBgContainer,
             transition: "all .3s ease-in-out",
-            overflow: "scroll",
+            overflowY: "scroll",
           }}
         >
           <Outlet />
+          <h1>Footer here</h1>
         </Content>
       </Layout>
     </Layout>

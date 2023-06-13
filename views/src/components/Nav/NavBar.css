@@ -7,9 +7,12 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 header {
-  margin: 0 auto;
+  /* margin: 0 auto; */
   position: relative;
   box-shadow: 0 2px 4px rgba(25, 25, 34, 0.05);
+}
+header img {
+  vertical-align: middle;
 }
 
 a {

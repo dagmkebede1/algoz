@@ -4,8 +4,15 @@ const CatchAsync = require("../utils/CatchAsync");
 // Creating a Modules
 const createModule = CatchAsync(async (req, res, next) => {
   const { title, videoResources, notes, tasks } = req.body;
+  let createdBy = req.user._id;
 
-  const newModule = new Module({ title, videoResources, notes, tasks });
+  const newModule = new Module({
+    title,
+    videoResources,
+    notes,
+    tasks,
+    createdBy,
+  });
   const result = await newModule.save();
 
   res.status(201).json(result);

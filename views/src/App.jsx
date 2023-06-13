@@ -8,10 +8,14 @@ import SignPage from "./components/SignUpPage/SignUpPage";
 import Navbar from "./components/Nav/Navbar";
 import Hero from "./components/Hero/Hero";
 import SignUP from "./components/Auth/Signup";
-import CourseView from "../src/components/CourseView/CourseView"
+import CourseView from "../src/components/CourseView/CourseView";
 import { useSelector, useDispatch } from "react-redux";
 import { getUser } from "./components/Redux/Reducers/authSllice";
 import ProtectedRoutes from "./components/Protect/ProtectedRoutes";
+import VideoComp from "./components/VideoComp/VideoComp";
+import NoteComp from "./components/NoteComp/NoteComp";
+import TaskComp from "./components/TaskComp/TaskComp";
+import ModuleComp from "./components/ModuleComp/ModuleComp";
 // import CourseCard from "./components/CourseCard/CourseCard";
 import {
   createBrowserRouter,
@@ -24,6 +28,7 @@ import Signup from "./components/Auth/Signup";
 import SignUpPage from "./components/SignUpPage/SignUpPage";
 import CourseWrapper from "./components/Courses/CourseWrapper";
 import MyInput from "./components/UI/MyInput/MyInput";
+import ResourceBar from "./components/ResourceBar/ResourceBar";
 
 function App() {
   const queryClient = new QueryClient();
@@ -61,8 +66,26 @@ function App() {
           element: <UserTable />,
         },
         {
-          path: "resourse",
-          element: <SignPage />,
+          path: "resources",
+          element: <ResourceBar />,
+          children: [
+            {
+              path: "modules",
+              element: <ModuleComp />,
+            },
+            {
+              path: "videos",
+              element: <VideoComp />,
+            },
+            {
+              path: "notes",
+              element: <NoteComp />,
+            },
+            {
+              path: "tasks",
+              element: <TaskComp />,
+            },
+          ],
         },
         {
           path: "courses",
